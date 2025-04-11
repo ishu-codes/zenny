@@ -13,6 +13,8 @@ import {
   CreditCard,
   Settings,
   Search,
+  Check,
+  X,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -125,17 +127,28 @@ export default function Navbar() {
             </Button>
           </DrawerTrigger>
           <DrawerContent>
-            <DrawerHeader>
+            <DrawerHeader className="flex flex-row items-center justify-between">
               <DrawerTitle>Notifications</DrawerTitle>
+              <DrawerClose asChild>
+                <Button variant={"ghost"}>
+                  <X />
+                </Button>
+              </DrawerClose>
+            </DrawerHeader>
+            <div className="flex flex-col gap-4 px-4">
               <DrawerDescription>
                 You can save around 40% on your food expenses
               </DrawerDescription>
-            </DrawerHeader>
+              <DrawerDescription>
+                You can save around 40% on your food expenses
+              </DrawerDescription>
+            </div>
             <DrawerFooter>
-              <Button>Clear all</Button>
-              <DrawerClose asChild>
-                <Button variant="outline">Close</Button>
-              </DrawerClose>
+              <Button>
+                <Check />
+                Mark all as read
+              </Button>
+              <Button variant={"outline"}>Clear all</Button>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>

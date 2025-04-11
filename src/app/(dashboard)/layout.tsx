@@ -7,7 +7,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       <Sidebar />
       <div className="w-full">
         <Navbar />
-        <main className="p-8">{children}</main>
+        <main className="h-[90%] p-8">{children}</main>
       </div>
     </div>
   );
