@@ -5,20 +5,20 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
-  History,
+  // History,
   NotebookText,
-  PiggyBank,
-  CreditCard,
+  // PiggyBank,
+  // CreditCard,
   ArrowRightLeft,
-  TvMinimalPlay,
-  FileText,
+  // TvMinimalPlay,
+  // FileText,
   Settings,
   Users,
   LogOut,
   PanelLeftOpen,
   PanelLeftClose,
 } from "lucide-react";
-import { inter } from "@/app/fonts";
+// import { inter } from "@/app/fonts";
 import Logo from "./Logo";
 import { Button } from "@/components/ui/button";
 import { useSidebarOpen } from "@/store/sidebar";
@@ -117,7 +117,7 @@ export default function Sidebar() {
           )}
         </Button>
         <Link
-          className="flex gap-3 px-3 py-2 text-sm text-muted-foreground hover:bg-accent rounded-md"
+          className="flex gap-3 px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-md"
           href="/logout"
           title="Log out"
         >
