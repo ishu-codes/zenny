@@ -63,7 +63,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="w-full flex items-center justify-between px-4 md:px-8 py-4 sticky top-0 backdrop-blur-2xl border-b">
+    <div className="w-full flex items-center justify-between px-4 md:px-8 py-4 sticky top-0 backdrop-blur border-b">
       {/* Logo */}
       <Link className="flex md:hidden justify-center" href="/">
         <Logo
@@ -203,7 +203,7 @@ function SearchBar({
       <Button
         variant="ghost"
         size={"icon"}
-        className=""
+        className="md:hidden"
         onClick={() => setSearchOpen(true)}
       >
         <Search />

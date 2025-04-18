@@ -22,27 +22,27 @@ const navLinks = [
   {
     url: "/dashboard",
     title: "Dashboard",
-    icon: <LayoutDashboard className="md:scale-80" />,
+    icon: <LayoutDashboard className="scale-90 md:scale-80" />,
   },
   {
     url: "/transactions",
     title: "Transactions",
-    icon: <ArrowRightLeft className="md:scale-80" />,
+    icon: <ArrowRightLeft className="scale-90 md:scale-80" />,
   },
   {
     url: "/budgeting",
     title: "Budgeting",
-    icon: <NotebookText className="md:scale-80" />,
+    icon: <NotebookText className="scale-90 md:scale-80" />,
   },
   {
     url: "/social",
     title: "Social",
-    icon: <Users className="md:scale-80" />,
+    icon: <Users className="scale-90 md:scale-80" />,
   },
   {
     url: "/settings",
     title: "Settings",
-    icon: <Settings className="md:scale-80" />,
+    icon: <Settings className="scale-90 md:scale-80" />,
   },
 ];
 
@@ -69,7 +69,7 @@ export default function Sidebar() {
         <nav className="w-full md:w-auto flex justify-between md:flex-col md:justify-baseline gap-2">
           {navLinks.map((nav) => (
             <Link
-              className={`flex items-center gap-3 p-4 md:px-3 md:py-2 text-sm hover:bg-white/10 rounded-md ${
+              className={`flex items-center gap-3 p-2 md:px-3 md:py-2 text-sm hover:bg-white/10 rounded-md ${
                 pathname.includes(nav.url)
                   ? "bg-white/10 text-white"
                   : "text-white/70"
@@ -78,7 +78,10 @@ export default function Sidebar() {
               key={nav.url}
               title={nav.title}
             >
-              {nav.icon} {isSidebarOpen && nav.title}
+              {nav.icon}{" "}
+              {isSidebarOpen && (
+                <span className="hidden md:inline">nav.title</span>
+              )}
             </Link>
           ))}
         </nav>
