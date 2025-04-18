@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import {
   Card,
   CardHeader,
@@ -16,6 +17,11 @@ import {
   doughnutOptions,
 } from "./chartsData";
 import { Progress } from "@/components/charts/ProgressBar";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Zenny",
+  description: "View all your finances at a glance.",
+};
 
 export default function DashboardPage() {
   return (

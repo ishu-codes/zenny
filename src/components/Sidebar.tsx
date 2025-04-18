@@ -1,17 +1,11 @@
 "use client";
 
-// import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
-  // History,
   NotebookText,
-  // PiggyBank,
-  // CreditCard,
   ArrowRightLeft,
-  // TvMinimalPlay,
-  // FileText,
   Settings,
   Users,
   LogOut,
@@ -28,40 +22,27 @@ const navLinks = [
   {
     url: "/dashboard",
     title: "Dashboard",
-    icon: <LayoutDashboard size={20} />,
+    icon: <LayoutDashboard className="md:scale-80" />,
   },
   {
     url: "/transactions",
     title: "Transactions",
-    icon: <ArrowRightLeft size={20} />,
+    icon: <ArrowRightLeft className="md:scale-80" />,
   },
-  { url: "/budgeting", title: "Budgeting", icon: <NotebookText size={20} /> },
-  //   { url: "/savings", title: "Savings", icon: <PiggyBank size={20} /> },
-  //   { url: "/credits", title: "Credits", icon: <CreditCard size={20} /> },
-  //   {
-  //     url: "/subscriptions",
-  //     title: "Subscriptions",
-  //     icon: <TvMinimalPlay size={20} />,
-  //   },
-  //   {
-  //     url: "/history",
-  //     title: "History",
-  //     icon: <History size={20} />,
-  //   },
-  //   {
-  //     url: "/reports",
-  //     title: "Reports",
-  //     icon: <FileText size={20} />,
-  //   },
+  {
+    url: "/budgeting",
+    title: "Budgeting",
+    icon: <NotebookText className="md:scale-80" />,
+  },
   {
     url: "/social",
     title: "Social",
-    icon: <Users size={20} />,
+    icon: <Users className="md:scale-80" />,
   },
   {
     url: "/settings",
     title: "Settings",
-    icon: <Settings size={20} />,
+    icon: <Settings className="md:scale-80" />,
   },
 ];
 
@@ -74,21 +55,24 @@ export default function Sidebar() {
   return (
     <div
       className={`${
-        isSidebarOpen ? "w-56" : ""
-      } h-screen sticky top-0 flex flex-col justify-between px-2 py-4 border-r transition-all duration-800`}
+        isSidebarOpen ? "md:w-56" : ""
+      } w-full md:w-auto md:h-screen fixed bottom-0 md:sticky md:top-0 flex md:flex-col justify-between px-4 md:px-1 py-2 md:pt-0 md:pb-4 bg-primary border-r transition-all duration-800 z-40`}
     >
-      <div className="flex flex-col gap-8">
-        <Link className="flex justify-center" href={"/"}>
+      <div className="w-full md:w-auto flex md:flex-col md:gap-8 overflow-auto">
+        <Link
+          className="hidden md:flex justify-center py-4 border-b border-white/10"
+          href={"/"}
+        >
           <Logo full={isSidebarOpen} />
         </Link>
 
-        <nav className="flex flex-col">
+        <nav className="w-full md:w-auto flex justify-between md:flex-col md:justify-baseline gap-2">
           {navLinks.map((nav) => (
             <Link
-              className={`flex gap-3 px-3 py-2 text-sm hover:bg-accent rounded-md ${
+              className={`flex items-center gap-3 p-4 md:px-3 md:py-2 text-sm hover:bg-white/10 rounded-md ${
                 pathname.includes(nav.url)
-                  ? "bg-accent"
-                  : "text-muted-foreground dark:text-muted-foreground/60"
+                  ? "bg-white/10 text-white"
+                  : "text-white/70"
               }`}
               href={nav.url}
               key={nav.url}
@@ -100,28 +84,28 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="hidden md:flex flex-col gap-2">
         <Button
           variant={"ghost"}
-          className="flex justify-start gap-3 px-3 py-2 text-sm text-muted-foreground hover:bg-accent rounded-md"
+          className="flex justify-start gap-3 px-3 py-2 text-sm text-white/70 hover:bg-white/10 hover:text-white/70 rounded-md"
           onClick={toggleSidebar}
           title={isSidebarOpen ? "Collapse" : "Expand"}
         >
           {isSidebarOpen ? (
             <>
-              <PanelLeftClose size={20} />
+              <PanelLeftClose />
               Collapse
             </>
           ) : (
-            <PanelLeftOpen size={20} />
+            <PanelLeftOpen />
           )}
         </Button>
         <Link
-          className="flex gap-3 px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-md"
+          className="flex gap-3 px-3 py-2 text-sm text-white/70 hover:bg-white/10 rounded-md"
           href="/logout"
           title="Log out"
         >
-          <LogOut size={20} />
+          <LogOut className="scale-80" />
           {isSidebarOpen && "Log out"}
         </Link>
       </div>

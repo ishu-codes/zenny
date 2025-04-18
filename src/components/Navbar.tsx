@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useTheme } from "next-themes";
 import {
   Sun,
@@ -18,7 +19,6 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-// import { Input } from "@/components/ui/input";
 import {
   CommandDialog,
   CommandInput,
@@ -45,7 +45,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import Link from "next/link";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -63,18 +63,24 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="w-full flex items-center justify-between px-8 py-4 sticky top-0 border-b">
+    <div className="w-full flex items-center justify-between px-2 md:px-8 py-4 sticky top-0 backdrop-blur-2xl border-b">
+      {/* Logo */}
+      <Link className="flex md:hidden justify-center" href="/">
+        <Logo full={false} pathColorClassName="bg-primary" />
+      </Link>
+
       {/* Search bar */}
       <Button
         variant="outline"
-        className="w-80 flex justify-between text-sm hover:bg-accent text-muted-foreground hover:text-muted-foreground px-4 py-2"
+        className="w-40 md:w-80 flex justify-between text-sm hover:bg-accent text-foreground md:text-muted-foreground hover:text-muted-foreground px-4 py-2"
         onClick={() => setSearchOpen(true)}
       >
-        <span className="flex gap-2 items-center">
+        <span className="flex gap-2 items-center text-muted-foreground">
           <Search />
-          Search here{" "}
+          Search
+          <span className="hidden md:block"> here </span>
         </span>
-        <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+        <kbd className="pointer-events-none hidden md:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>
@@ -172,38 +178,32 @@ export default function Navbar() {
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </PopoverTrigger>
-          <PopoverContent>
-            <div className="grid gap-4">
-              <div className="flex flex-col items-center space-y-2">
-                <Avatar>
-                  <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="Avatar"
-                    className="w-[5rem]"
-                  />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <h4 className="font-medium leading-none">Ishu Coder</h4>
-                <p className="text-sm text-muted-foreground">
-                  email@example.com
-                </p>
-              </div>
-              <div className="flex justify-between">
-                {[
-                  {
-                    title: "Edit profile",
-                    url: "/settings/profile",
-                    variant: "outline",
-                  },
-                  { title: "Logout", url: "/logout", variant: "default" },
-                ].map((option) => (
-                  // <div className="flex items-center gap-4" key={option.title}>
-                  <Button variant={option.variant} key={option.title}>
-                    <Link href={option.url}>{option.title}</Link>
-                  </Button>
-                  // </div>
-                ))}
-              </div>
+          <PopoverContent className="grid gap-4 bg-background">
+            <div className="flex flex-col items-center space-y-2">
+              <Avatar>
+                <AvatarImage
+                  src="https://github.com/shadcn.png"
+                  alt="Avatar"
+                  className="w-[5rem]"
+                />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <h4 className="font-medium leading-none">Ishu Coder</h4>
+              <p className="text-sm text-muted-foreground">email@example.com</p>
+            </div>
+            <div className="flex justify-between">
+              {[
+                {
+                  title: "Edit profile",
+                  url: "/settings/profile",
+                  variant: "outline",
+                },
+                { title: "Logout", url: "/logout", variant: "default" },
+              ].map((option) => (
+                <Button variant={option.variant} key={option.title}>
+                  <Link href={option.url}>{option.title}</Link>
+                </Button>
+              ))}
             </div>
           </PopoverContent>
         </Popover>
