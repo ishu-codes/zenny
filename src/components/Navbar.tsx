@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import {
@@ -63,67 +63,29 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="w-full flex items-center justify-between px-2 md:px-8 py-4 sticky top-0 backdrop-blur-2xl border-b">
+    <div className="w-full flex items-center justify-between px-4 md:px-8 py-4 sticky top-0 backdrop-blur-2xl border-b">
       {/* Logo */}
       <Link className="flex md:hidden justify-center" href="/">
-        <Logo full={false} pathColorClassName="bg-primary" />
+        <Logo
+          full={true}
+          pathColorClassName="fill-primary dark:fill-primary-foreground"
+        />
       </Link>
 
-      {/* Search bar */}
-      <Button
-        variant="outline"
-        className="w-40 md:w-80 flex justify-between text-sm hover:bg-accent text-foreground md:text-muted-foreground hover:text-muted-foreground px-4 py-2"
-        onClick={() => setSearchOpen(true)}
-      >
-        <span className="flex gap-2 items-center text-muted-foreground">
-          <Search />
-          Search
-          <span className="hidden md:block"> here </span>
-        </span>
-        <kbd className="pointer-events-none hidden md:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-          <span className="text-xs">⌘</span>K
-        </kbd>
-      </Button>
-      <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
-        <CommandInput placeholder="Type a command or search..." />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Suggestions">
-            <CommandItem>
-              <Calendar />
-              <span>Calendar</span>
-            </CommandItem>
-            <CommandItem>
-              <Smile />
-              <span>Search Emoji</span>
-            </CommandItem>
-            <CommandItem>
-              <Calculator />
-              <span>Calculator</span>
-            </CommandItem>
-          </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Settings">
-            <CommandItem>
-              <User />
-              <span>Profile</span>
-              <CommandShortcut>⌘P</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <CreditCard />
-              <span>Billing</span>
-              <CommandShortcut>⌘B</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <Settings />
-              <span>Settings</span>
-              <CommandShortcut>⌘S</CommandShortcut>
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
+      {/* Search bar for lg-screen */}
+      <SearchBar
+        className="hidden md:flex"
+        searchOpen={searchOpen}
+        setSearchOpen={setSearchOpen}
+      />
 
-      <div className="flex gap-4">
+      <div className="flex gap-2 md:gap-4">
+        {/* Search bar for mobile */}
+        <SearchBar
+          className="md:hidden"
+          searchOpen={searchOpen}
+          setSearchOpen={setSearchOpen}
+        />
         {/* Notification */}
         <Drawer direction="right">
           <DrawerTrigger asChild>
@@ -208,6 +170,82 @@ export default function Navbar() {
           </PopoverContent>
         </Popover>
       </div>
+    </div>
+  );
+}
+
+function SearchBar({
+  className,
+  searchOpen,
+  setSearchOpen,
+}: {
+  className?: string;
+  searchOpen: boolean;
+  setSearchOpen: Dispatch<SetStateAction<boolean>>;
+}) {
+  return (
+    <div className={className}>
+      {/* for lg-scrren */}
+      <Button
+        variant="outline"
+        className="w-80 hidden md:flex justify-between text-sm hover:bg-accent text-muted-foreground hover:text-muted-foreground px-4 py-2"
+        onClick={() => setSearchOpen(true)}
+      >
+        <span className="flex gap-2 items-center text-muted-foreground">
+          <Search /> Search here
+        </span>
+        <kbd className="pointer-events-none hidden md:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+          <span className="text-xs">⌘</span>K
+        </kbd>
+      </Button>
+
+      {/* for mobile */}
+      <Button
+        variant="ghost"
+        size={"icon"}
+        className=""
+        onClick={() => setSearchOpen(true)}
+      >
+        <Search />
+      </Button>
+      <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
+        <CommandInput placeholder="Type a command or search..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Suggestions">
+            <CommandItem>
+              <Calendar />
+              <span>Calendar</span>
+            </CommandItem>
+            <CommandItem>
+              <Smile />
+              <span>Search Emoji</span>
+            </CommandItem>
+            <CommandItem>
+              <Calculator />
+              <span>Calculator</span>
+            </CommandItem>
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading="Settings">
+            <CommandItem>
+              <User />
+              <span>Profile</span>
+              <CommandShortcut>⌘P</CommandShortcut>
+            </CommandItem>
+            <CommandItem>
+              <CreditCard />
+              <span>Billing</span>
+              <CommandShortcut>⌘B</CommandShortcut>
+            </CommandItem>
+            <CommandItem>
+              <Settings />
+              <span>Settings</span>
+              <CommandShortcut>⌘S</CommandShortcut>
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
     </div>
   );
 }
