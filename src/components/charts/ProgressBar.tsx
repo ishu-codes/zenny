@@ -37,7 +37,9 @@ const Progress: React.FC<ProgressProps> = ({
     >
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
-        className={cn(`bg-primary h-full transition-all duration-300`)}
+        className={cn(
+          `bg-primary h-full transition-all duration-300 rounded-xl`
+        )}
         style={{
           transform: `translateX(-${100 - (progress / max) * 100}%)`,
           backgroundColor: color,
