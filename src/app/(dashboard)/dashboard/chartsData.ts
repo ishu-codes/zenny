@@ -1,57 +1,52 @@
-import type { ChartData, ChartOptions } from "chart.js";
+// import { ApexOptions } from "apexcharts";
+// // import type { ChartData, ChartOptions } from "chart.js";
 
-const lineData: ChartData<"line"> = {
+// export const optionsApex: ApexOptions = {
+//   chart: {
+//     type: "area",
+//   },
+//   xaxis: {
+//     categories: ["Dec", "Jan", "Feb", "Mar", "Apr"],
+//     axisBorder: {
+//       color: "#7083ac22",
+//     },
+//     axisTicks: { show: false },
+//     tooltip: { enabled: false },
+//   },
+//   stroke: {
+//     curve: "smooth",
+//     width: 2,
+//   },
+//   markers: {
+//     size: 3,
+//   },
+//   grid: {
+//     borderColor: "#7083ac22",
+//   },
+// };
+
+// export const seriesApex: ApexAxisChartSeries | ApexNonAxisChartSeries = [
+//   { name: "Expenses", data: [150, 200, 180, 220, 170] },
+//   { name: "Revenue", data: [170, 180, 210, 120, 170] },
+// ];
+
+// export const doughnutOptions: ApexOptions = {
+//   chart: {
+//     type: "pie",
+//   },
+//   labels: ["Food", "Travel", "Hygiene", "Others"],
+//   // colors: ["#E76E50", "#2A9D90", "#F4A462", "#E8C468", "#274754"],
+// };
+// export const doughnutSeries: number[] = [100, 80, 60, 20];
+
+export const MONTHLY_EXPENSES = {
   labels: ["Dec", "Jan", "Feb", "Mar", "Apr"],
-  datasets: [
-    {
-      label: "Expenses",
-      data: [150, 200, 180, 220, 170],
-      fill: false,
-      borderColor: "#E76E50",
-      backgroundColor: "#E76E50",
-      tension: 0.25,
-    },
-    {
-      label: "Income",
-      data: [170, 180, 210, 120, 170],
-      fill: false,
-      borderColor: "#2A9D90",
-      backgroundColor: "#2A9D90",
-      tension: 0.25,
-    },
+  values: [
+    { name: "Expenses", data: [150, 200, 180, 220, 170] },
+    { name: "Revenue", data: [170, 180, 210, 120, 170] },
   ],
 };
-
-const lineOptions: ChartOptions<"line"> = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-  },
-};
-
-const doughnutData: ChartData<"doughnut"> = {
+export const EXPENSES_BY_CATEGORIES = {
   labels: ["Food", "Travel", "Hygiene", "Others"],
-  datasets: [
-    {
-      label: "Expense",
-      data: [100, 80, 60, 20],
-      backgroundColor: ["#E76E50", "#2A9D90", "#274754", "#E8C468"],
-      hoverOffset: 4,
-      spacing: 2,
-      borderRadius: 5,
-      //   borderJoinStyle: "round",
-    },
-  ],
+  values: [100, 80, 60, 20],
 };
-
-const doughnutOptions: ChartOptions<"doughnut"> = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "right",
-    },
-  },
-};
-export { lineData, lineOptions, doughnutData, doughnutOptions };

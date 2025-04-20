@@ -8,16 +8,14 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 
-import LineChart from "@/components/charts/LineChart";
-import DoughnutChart from "@/components/charts/DoughnutChart";
-import {
-  lineData,
-  lineOptions,
-  doughnutData,
-  doughnutOptions,
-} from "./chartsData";
+// import LineChart from "@/components/charts/LineChart";
+// import Chart from "react-apexcharts";
+// import DoughnutChart from "@/components/charts/DoughnutChart";
+import { MONTHLY_EXPENSES, EXPENSES_BY_CATEGORIES } from "./chartsData";
+
 import { Progress } from "@/components/charts/ProgressBar";
 import { ArrowDown, ArrowUp } from "lucide-react";
+import ApexChart from "./ApexChart";
 // import { Separator } from "@/components/ui/separator";
 
 export const metadata: Metadata = {
@@ -54,7 +52,7 @@ const SHORT_INFO = [
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 pb-16">
       {/* Title */}
       <h1 className="font-bold text-xl">Dashboard</h1>
 
@@ -92,14 +90,19 @@ export default function DashboardPage() {
           </Card>
         ))}
       </div>
-      <div className="h-full grid grid-cols-3 grid-rows-2 gap-6">
+      <div className="h-full grid gap-6 grid-cols-1 xs:grid-cols-2 lg:grid-cols-3">
         {/* Monthly Expenses */}
         <Card>
           <CardHeader>
             <CardTitle>Monthly Expenses</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col items-center">
-            <LineChart data={lineData} options={lineOptions} />
+          <CardContent className="transition-all duration-300 ease-in-out">
+            <ApexChart
+              labels={MONTHLY_EXPENSES.labels}
+              values={MONTHLY_EXPENSES.values}
+              type="line"
+              width={"100%"}
+            />
           </CardContent>
         </Card>
 
@@ -108,10 +111,13 @@ export default function DashboardPage() {
           <CardHeader>
             <CardTitle>Expenses this month</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-row items-start justify-center">
-            <div className="-mt-12">
-              <DoughnutChart data={doughnutData} options={doughnutOptions} />
-            </div>
+          <CardContent className="transition-all duration-300 ease-in-out">
+            <ApexChart
+              labels={EXPENSES_BY_CATEGORIES.labels}
+              values={EXPENSES_BY_CATEGORIES.values}
+              type="pie"
+              width={"100%"}
+            />
           </CardContent>
         </Card>
 

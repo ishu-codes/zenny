@@ -55,8 +55,8 @@ export default function Sidebar() {
   return (
     <div
       className={`${
-        isSidebarOpen ? "md:w-56" : ""
-      } w-full md:w-auto md:h-screen fixed bottom-0 md:sticky md:top-0 flex md:flex-col justify-between px-4 md:px-1 py-2 md:pt-0 md:pb-4 bg-primary border-r transition-all duration-800 z-40`}
+        isSidebarOpen ? "md:w-60" : "md:w-auto"
+      } w-full md:h-screen fixed bottom-0 md:sticky md:top-0 flex md:flex-col justify-between px-4 md:px-1 py-2 md:pt-0 md:pb-4 bg-primary border-r transition-all duration-800 z-40`}
     >
       <div className="w-full md:w-auto flex md:flex-col md:gap-8 overflow-auto">
         <Link
@@ -80,7 +80,7 @@ export default function Sidebar() {
             >
               {nav.icon}{" "}
               {isSidebarOpen && (
-                <span className="hidden md:inline">nav.title</span>
+                <span className="hidden md:inline">{nav.title}</span>
               )}
             </Link>
           ))}
