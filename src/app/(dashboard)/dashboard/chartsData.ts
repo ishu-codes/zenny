@@ -1,43 +1,29 @@
-// import { ApexOptions } from "apexcharts";
-// // import type { ChartData, ChartOptions } from "chart.js";
-
-// export const optionsApex: ApexOptions = {
-//   chart: {
-//     type: "area",
-//   },
-//   xaxis: {
-//     categories: ["Dec", "Jan", "Feb", "Mar", "Apr"],
-//     axisBorder: {
-//       color: "#7083ac22",
-//     },
-//     axisTicks: { show: false },
-//     tooltip: { enabled: false },
-//   },
-//   stroke: {
-//     curve: "smooth",
-//     width: 2,
-//   },
-//   markers: {
-//     size: 3,
-//   },
-//   grid: {
-//     borderColor: "#7083ac22",
-//   },
-// };
-
-// export const seriesApex: ApexAxisChartSeries | ApexNonAxisChartSeries = [
-//   { name: "Expenses", data: [150, 200, 180, 220, 170] },
-//   { name: "Revenue", data: [170, 180, 210, 120, 170] },
-// ];
-
-// export const doughnutOptions: ApexOptions = {
-//   chart: {
-//     type: "pie",
-//   },
-//   labels: ["Food", "Travel", "Hygiene", "Others"],
-//   // colors: ["#E76E50", "#2A9D90", "#F4A462", "#E8C468", "#274754"],
-// };
-// export const doughnutSeries: number[] = [100, 80, 60, 20];
+export const SHORT_INFO = [
+  {
+    title: "Total Balance",
+    value: "4,32,568",
+    percentageChange: 3.12,
+    lastMonth: "28,940",
+  },
+  {
+    title: "Total Period Change",
+    value: "2,45,860",
+    percentageChange: 1.98,
+    lastMonth: "21,230",
+  },
+  {
+    title: "Total Period Expense",
+    value: "2,530",
+    percentageChange: -4.78,
+    lastMonth: "26,340",
+  },
+  {
+    title: "Total Period Income",
+    value: "24,560",
+    percentageChange: 2.84,
+    lastMonth: "28,940",
+  },
+];
 
 export const MONTHLY_EXPENSES = {
   labels: ["Dec", "Jan", "Feb", "Mar", "Apr"],

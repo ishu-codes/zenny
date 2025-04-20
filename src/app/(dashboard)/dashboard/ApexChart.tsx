@@ -2,12 +2,9 @@
 
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-// import { ApexOptions } from "apexcharts";
 import { useTheme } from "next-themes";
 
 interface ApexChartProps {
-  // options: ApexOptions;
-  // series: ApexAxisChartSeries | ApexNonAxisChartSeries;
   labels: string[];
   values: string[] | number[] | { name: string; data: number[] }[];
   type:

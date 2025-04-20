@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import { ArrowDown, ArrowUp } from "lucide-react";
+import { Progress } from "@/components/charts/ProgressBar";
 import {
   Card,
   CardHeader,
@@ -8,47 +10,17 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 
-// import LineChart from "@/components/charts/LineChart";
-// import Chart from "react-apexcharts";
-// import DoughnutChart from "@/components/charts/DoughnutChart";
-import { MONTHLY_EXPENSES, EXPENSES_BY_CATEGORIES } from "./chartsData";
-
-import { Progress } from "@/components/charts/ProgressBar";
-import { ArrowDown, ArrowUp } from "lucide-react";
 import ApexChart from "./ApexChart";
-// import { Separator } from "@/components/ui/separator";
+import {
+  SHORT_INFO,
+  MONTHLY_EXPENSES,
+  EXPENSES_BY_CATEGORIES,
+} from "./chartsData";
 
 export const metadata: Metadata = {
   title: "Dashboard | Zenny",
   description: "View all your finances at a glance.",
 };
-
-const SHORT_INFO = [
-  {
-    title: "Total Balance",
-    value: "4,32,568",
-    percentageChange: 3.12,
-    lastMonth: "28,940",
-  },
-  {
-    title: "Total Period Change",
-    value: "2,45,860",
-    percentageChange: 1.98,
-    lastMonth: "21,230",
-  },
-  {
-    title: "Total Period Expense",
-    value: "2,530",
-    percentageChange: -4.78,
-    lastMonth: "26,340",
-  },
-  {
-    title: "Total Period Income",
-    value: "24,560",
-    percentageChange: 2.84,
-    lastMonth: "28,940",
-  },
-];
 
 export default function DashboardPage() {
   return (
