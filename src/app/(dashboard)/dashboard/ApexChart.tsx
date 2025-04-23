@@ -39,6 +39,8 @@ const DARK_THEME_COLORS = [
   "#ff2056",
 ];
 
+const getSum = (items: number[]) => items.reduce((a, b) => a + b, 0);
+
 const ApexChart: React.FC<ApexChartProps> = ({
   labels,
   values,
@@ -48,7 +50,7 @@ const ApexChart: React.FC<ApexChartProps> = ({
 }) => {
   const { theme } = useTheme();
 
-  if (type === "pie")
+  if (["pie", "donut"].includes(type))
     return (
       <Chart
         options={{
@@ -62,6 +64,15 @@ const ApexChart: React.FC<ApexChartProps> = ({
             colors: [theme === "dark" ? "#1c1832" : "#fff"],
             width: 3,
           },
+          // pie: {
+          //   donut: {
+          //     size: "10%",
+          //     labels: {
+          //       show: true,
+          //       values: getSum(values),
+          //     },
+          //   },
+          // },
         }}
         series={values}
         type={type}

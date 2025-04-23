@@ -6,19 +6,19 @@ export const SHORT_INFO = [
     lastMonth: "28,940",
   },
   {
-    title: "Total Period Change",
+    title: "Change this month",
     value: "2,45,860",
     percentageChange: 1.98,
     lastMonth: "21,230",
   },
   {
-    title: "Total Period Expense",
+    title: "Expenses this month",
     value: "2,530",
     percentageChange: -4.78,
     lastMonth: "26,340",
   },
   {
-    title: "Total Period Income",
+    title: "Income this month",
     value: "24,560",
     percentageChange: 2.84,
     lastMonth: "28,940",

@@ -63,7 +63,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="w-full flex items-center justify-between px-4 md:px-8 py-4 sticky top-0 backdrop-blur border-b">
+    <div className="w-full flex items-center justify-between px-4 md:px-8 py-4 sticky top-0 z-40 backdrop-blur border-b">
       {/* Logo */}
       <Link className="flex md:hidden justify-center" href="/">
         <Logo

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { TrendingDown, TrendingUp } from "lucide-react";
 import { Progress } from "@/components/charts/ProgressBar";
 import {
   Card,
@@ -41,14 +41,14 @@ export default function DashboardPage() {
               <CardDescription>
                 {info.percentageChange > 0 ? (
                   <div className="flex gap-1 text-sm text-emerald-600 dark:text-emerald-400">
-                    <ArrowUp size={20} />
+                    <TrendingUp size={20} />
                     <span className="font-medium">
                       {info.percentageChange}&#37;
                     </span>
                   </div>
                 ) : (
                   <div className="flex gap-1 text-sm text-red-600 dark:text-red-400">
-                    <ArrowDown size={20} />
+                    <TrendingDown size={20} />
                     <span className="font-medium">
                       {info.percentageChange}&#37;
                     </span>
@@ -64,7 +64,7 @@ export default function DashboardPage() {
       </div>
       <div className="h-full grid gap-6 grid-cols-1 xs:grid-cols-2 lg:grid-cols-3">
         {/* Monthly Expenses */}
-        <Card>
+        <Card className="min-h-80">
           <CardHeader>
             <CardTitle>Monthly Expenses</CardTitle>
           </CardHeader>
@@ -87,7 +87,7 @@ export default function DashboardPage() {
             <ApexChart
               labels={EXPENSES_BY_CATEGORIES.labels}
               values={EXPENSES_BY_CATEGORIES.values}
-              type="pie"
+              type="donut"
               width={"100%"}
             />
           </CardContent>
