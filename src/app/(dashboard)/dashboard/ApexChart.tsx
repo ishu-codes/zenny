@@ -39,7 +39,7 @@ const DARK_THEME_COLORS = [
   "#ff2056",
 ];
 
-const getSum = (items: number[]) => items.reduce((a, b) => a + b, 0);
+// const getSum = (items: number[]) => items.reduce((a, b) => a + b, 0);
 
 const ApexChart: React.FC<ApexChartProps> = ({
   labels,
@@ -64,15 +64,32 @@ const ApexChart: React.FC<ApexChartProps> = ({
             colors: [theme === "dark" ? "#1c1832" : "#fff"],
             width: 3,
           },
-          // pie: {
-          //   donut: {
-          //     size: "10%",
-          //     labels: {
-          //       show: true,
-          //       values: getSum(values),
-          //     },
-          //   },
-          // },
+          plotOptions: {
+            pie: {
+              donut: {
+                size: "50%",
+                labels: {
+                  show: true,
+                  name: {
+                    show: false,
+                    fontWeight: 700,
+                  },
+                  total: {
+                    show: true,
+                    showAlways: true,
+                    formatter: function (w) {
+                      return (
+                        "₹ " +
+                        w.globals.seriesTotals.reduce((a, b) => {
+                          return a + b;
+                        }, 0)
+                      );
+                    },
+                  },
+                },
+              },
+            },
+          },
         }}
         series={values}
         type={type}

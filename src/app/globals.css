@@ -41,6 +41,11 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --color-card-green: var(--card-green);
+  --color-card-green-light: var(--card-green-light);
+  --color-card-blue: var(--card-blue);
+  --color-card-blue-light: var(--card-blue-light);
 }
 
 :root {
@@ -83,6 +88,11 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
+
+  --card-green: oklch(0.55 0.0815 160.22);
+  --card-green-light: oklch(0.63 0.098 147.58);
+  --card-blue: oklch(0.41 0.2367 264.62);
+  --card-blue-light: oklch(0.53 0.2562 267.19);
 }
 
 .dark {
@@ -124,6 +134,11 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
+
+  --card-green: oklch(0.55 0.0815 160.22);
+  --card-green-light: oklch(0.63 0.098 147.58);
+  --card-blue: oklch(0.41 0.2367 264.62);
+  --card-blue-light: oklch(0.53 0.2562 267.19);
 }
 
 @layer base {
@@ -137,6 +152,17 @@
 
 button {
   cursor: pointer;
+}
+
+.calendar table tr {
+  display: flex;
+  justify-content: space-between;
+}
+/* sm */
+@media (width >= 40rem) {
+  .rdp-caption_start {
+    width: 100%;
+  }
 }
 
 /* Apex Charts */

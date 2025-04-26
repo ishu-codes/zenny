@@ -9,6 +9,9 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CardTab } from "./CardTab";
+import { CalendarTab } from "./CalendarTab";
 
 import ApexChart from "./ApexChart";
 import {
@@ -95,16 +98,20 @@ export default function DashboardPage() {
 
         {/* Card & Transactions */}
         <Card className="row-span-2">
-          <CardHeader>
-            <CardTitle>Cards</CardTitle>
-            {/* <CardDescription>Card Description</CardDescription> */}
-          </CardHeader>
           <CardContent>
-            <p>Card Content</p>
+            <Tabs defaultValue="calendar" className="w-full">
+              <TabsList className="grid w-full grid-cols-2 bg-background">
+                <TabsTrigger value="calendar">Calendar</TabsTrigger>
+                <TabsTrigger value="cards">Cards & Transactions</TabsTrigger>
+              </TabsList>
+              <TabsContent className="pt-2" value="calendar">
+                <CalendarTab />
+              </TabsContent>
+              <TabsContent className="pt-2" value="cards">
+                <CardTab />
+              </TabsContent>
+            </Tabs>
           </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
         </Card>
 
         {/* Gloas & Savings */}
