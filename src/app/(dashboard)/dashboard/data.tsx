@@ -1,5 +1,42 @@
 import { Bath, BriefcaseBusiness, Plane, Utensils } from "lucide-react";
 
+export type Event = {
+  id: number;
+  title: string;
+  date: Date;
+  description: string;
+  importance: "HIGH" | "MEDIUM" | "LOW";
+};
+
+export const COLORS = {
+  HIGH: "red-500",
+  MEDIUM: "yellow-500",
+  LOW: "blue-500",
+};
+export const EVENTS: Event[] = [
+  {
+    id: 1,
+    title: "Team Meeting",
+    date: new Date("2025-5-4 20:40"),
+    description: "Monthly team sync with all departments",
+    importance: "MEDIUM",
+  },
+  {
+    id: 2,
+    title: "Project Deadline",
+    date: new Date("2025-5-6"),
+    description: "Final submission for Q1 project",
+    importance: "HIGH",
+  },
+  {
+    id: 3,
+    title: "Budget Review",
+    date: new Date("2025-5-7"),
+    description: "Monthly budget review meeting",
+    importance: "LOW",
+  },
+];
+
 export type CardInterface = {
   title: string;
   number: string;

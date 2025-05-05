@@ -1,7 +1,7 @@
 export const getFormattedDateTime = (dateData) => {
   const selectedDate = new Date(dateData);
 
-  const daysGap = new Date().getDate() - selectedDate.getDate();
+  const daysGap = selectedDate.getDate() - new Date().getDate();
   if (Math.abs(daysGap) <= 1) {
     const date = new Intl.RelativeTimeFormat("en", {
       style: "long",

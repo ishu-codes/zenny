@@ -1,7 +1,11 @@
 # Basic Features
 
-- [ ] Swipable Bank Cards
+- [x] Swipable Bank Cards
+- [ ] Transactions Page
+- [ ] Budgeting Page
+- [ ] Social Page
+- [ ] Settings Page
 
 # Adv Features
 
-- [ ] Swipable Bank Cards
+- [ ] Smart Tips implementation

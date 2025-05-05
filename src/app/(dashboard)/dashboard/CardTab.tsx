@@ -41,28 +41,9 @@ export function CardTab() {
 
   return (
     <div className="space-y-6">
-      {/* To colored cards */}
-      <div className="hidden">
-        {[
-          "bg-card-green",
-          "bg-card-green-light",
-          "bg-card-blue",
-          "bg-card-blue-light",
-        ].map((color) => (
-          <div key={color} className={color}></div>
-        ))}
-      </div>
-
       <div className="flex flex-col gap-2">
         <div className="flex whitespace-nowrap overflow-hidden">
-          <div
-            className="w-full flex gap-4 transition-transform duration-300 ease-in-out"
-            // style={{
-            //   transform: `translateX(calc(-${currentCardIndex * 100}% - ${
-            //     currentCardIndex * 1
-            //   }rem))`,
-            // }}
-          >
+          <div className="w-full flex gap-4 transition-transform duration-300 ease-in-out">
             <Swiper
               modules={[Navigation, Pagination]}
               spaceBetween={20}

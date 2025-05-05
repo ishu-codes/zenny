@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
-import { Card } from "@/components/ui/card";
+// import { Card } from "@/components/ui/card";
 import {
   Accordion,
   AccordionContent,
@@ -17,38 +17,48 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { getFormattedDateTime } from "@/lib/date";
-
-type Event = {
-  id: number;
-  title: string;
-  date: Date;
-  description: string;
-};
+import { EVENTS, COLORS, type Event } from "./data";
 
 export function CalendarTab() {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const currentDate = new Date();
 
-  const events: Event[] = [
-    {
-      id: 1,
-      title: "Team Meeting",
-      date: new Date(2024, 3, 25),
-      description: "Monthly team sync with all departments",
-    },
-    {
-      id: 2,
-      title: "Project Deadline",
-      date: new Date(2024, 3, 28),
-      description: "Final submission for Q1 project",
-    },
-    {
-      id: 3,
-      title: "Budget Review",
-      date: new Date(2024, 3, 30),
-      description: "Monthly budget review meeting",
-    },
-  ];
+  const upcomingEvents = EVENTS.filter(
+    (event) =>
+      new Date(event.date).setHours(0, 0, 0, 0) >=
+      currentDate.setHours(0, 0, 0, 0)
+  ).sort((a, b) => a.date.getTime() - b.date.getTime());
+
+  const previousEvents = EVENTS.filter(
+    (event) =>
+      new Date(event.date).setHours(0, 0, 0, 0) <
+      currentDate.setHours(0, 0, 0, 0)
+  ).sort((a, b) => b.date.getTime() - a.date.getTime());
+
+  const renderEventList = (events: Event[]) => (
+    <div className="space-y-2">
+      {events.map((event) => (
+        <div
+          key={event.id}
+          className="flex justify-between items-center p-3 hover:bg-muted rounded-lg cursor-pointer"
+          onClick={() => setSelectedEvent(event)}
+        >
+          <div className={`border-l-4 pl-4 border-${COLORS[event.importance]}`}>
+            <p className="font-medium">{event.title}</p>
+            <p className="text-xs text-muted-foreground">
+              {getFormattedDateTime(event.date)}
+            </p>
+          </div>
+        </div>
+      ))}
+      {events.length === 0 && (
+        <p className="text-sm text-muted-foreground p-3">
+          No events to display
+        </p>
+      )}
+    </div>
+  );
 
   return (
     <div className="flex flex-col gap-4">
@@ -63,31 +73,18 @@ export function CalendarTab() {
         <Accordion type="single" defaultValue="upcoming" collapsible>
           <AccordionItem value="upcoming">
             <AccordionTrigger>
-              <h3 className="text-xl font-semibold">Upcoming Events</h3>
+              <h3 className="text-lg font-semibold">Upcoming Events</h3>
             </AccordionTrigger>
             <AccordionContent>
-              <div className="space-y-2">
-                {events.map((event) => (
-                  <div
-                    key={event.id}
-                    className="flex justify-between items-center p-3 hover:bg-muted rounded-lg cursor-pointer"
-                    onClick={() => setSelectedEvent(event)}
-                  >
-                    <div>
-                      <p className="font-medium">{event.title}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {getFormattedDateTime(event.date)}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              {renderEventList(upcomingEvents)}
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="previous">
-            <AccordionTrigger>Previous events</AccordionTrigger>
+            <AccordionTrigger>
+              <h3 className="text-lg font-semibold">Previous Events</h3>
+            </AccordionTrigger>
             <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
+              {renderEventList(previousEvents)}
             </AccordionContent>
           </AccordionItem>
         </Accordion>
@@ -101,7 +98,7 @@ export function CalendarTab() {
           <DialogHeader>
             <DialogTitle>{selectedEvent?.title}</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <div className="space-y-2">
             <p>{selectedEvent?.description}</p>
             <p className="text-sm text-muted-foreground">
               Date: {selectedEvent?.date.toLocaleDateString()}
