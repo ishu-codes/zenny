@@ -27,10 +27,7 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col gap-6 pb-16">
-      {/* Title */}
-      <h1 className="font-bold text-xl">Dashboard</h1>
-
+    <div className="flex flex-col gap-6 pb-4">
       {/* Short Info */}
       <div className="grid gap-6 grid-cols-1 xs:grid-cols-2 lg:grid-cols-4">
         {SHORT_INFO.map((info) => (

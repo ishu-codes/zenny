@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       <Sidebar />
       <div className="w-full overflow-y-auto">
         <Navbar />
-        <main className="p-4 md:p-8">{children}</main>
+        <main className="min-h-[80%] p-4 md:p-8">{children}</main>
         <Footer />
       </div>
     </div>

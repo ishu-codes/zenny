@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
   Sun,
@@ -46,10 +47,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import Logo from "./Logo";
+import { NAVLINKS } from "./data";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [searchOpen, setSearchOpen] = useState(false);
+  const [currentNavName, setCurrentNavName] = useState<string>("Dashboard");
+  const pathname = usePathname();
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -62,6 +66,11 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
+  useEffect(() => {
+    const navLink = NAVLINKS.find((nav) => nav.url === pathname);
+    if (navLink) setCurrentNavName(navLink.title);
+  }, [pathname]);
+
   return (
     <div className="w-full flex items-center justify-between px-4 md:px-8 py-4 sticky top-0 z-40 backdrop-blur border-b">
       {/* Logo */}
@@ -71,6 +80,11 @@ export default function Navbar() {
           pathColorClassName="fill-primary dark:fill-primary-foreground"
         />
       </Link>
+
+      {/* Title */}
+      <h1 className="hidden md:block w-36 font-bold text-xl">
+        {currentNavName}
+      </h1>
 
       {/* Search bar for lg-screen */}
       <SearchBar

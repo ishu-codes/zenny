@@ -2,49 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  NotebookText,
-  ArrowRightLeft,
-  Settings,
-  Users,
-  LogOut,
-  PanelLeftOpen,
-  PanelLeftClose,
-} from "lucide-react";
-// import { inter } from "@/app/fonts";
+import { LogOut, PanelLeftOpen, PanelLeftClose } from "lucide-react";
 import Logo from "./Logo";
 import { Button } from "@/components/ui/button";
 import { useSidebarOpen } from "@/store/sidebar";
 import { useShallow } from "zustand/shallow";
-
-const navLinks = [
-  {
-    url: "/dashboard",
-    title: "Dashboard",
-    icon: <LayoutDashboard className="scale-90 md:scale-80" />,
-  },
-  {
-    url: "/transactions",
-    title: "Transactions",
-    icon: <ArrowRightLeft className="scale-90 md:scale-80" />,
-  },
-  {
-    url: "/budgeting",
-    title: "Budgeting",
-    icon: <NotebookText className="scale-90 md:scale-80" />,
-  },
-  {
-    url: "/social",
-    title: "Social",
-    icon: <Users className="scale-90 md:scale-80" />,
-  },
-  {
-    url: "/settings",
-    title: "Settings",
-    icon: <Settings className="scale-90 md:scale-80" />,
-  },
-];
+import { NAVLINKS } from "./data";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -67,7 +30,7 @@ export default function Sidebar() {
         </Link>
 
         <nav className="w-full md:w-auto flex justify-between md:flex-col md:justify-baseline gap-2">
-          {navLinks.map((nav) => (
+          {NAVLINKS.map((nav) => (
             <Link
               className={`flex items-center gap-3 p-2 md:px-3 md:py-2 text-sm hover:bg-white/10 rounded-md ${
                 pathname.includes(nav.url)
