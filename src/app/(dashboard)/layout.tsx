@@ -8,9 +8,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     <div className="w-full h-screen flex">
       <ColorsDeclaration />
       <Sidebar />
-      <div className="w-full overflow-y-auto">
+      <div className="w-full flex flex-col overflow-y-auto">
         <Navbar />
-        <main className="min-h-[80%] p-4 md:p-8">{children}</main>
+        <main className="flex-1 p-4 md:p-8">{children}</main>
         <Footer />
       </div>
     </div>
