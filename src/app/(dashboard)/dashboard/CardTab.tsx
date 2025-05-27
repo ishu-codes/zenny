@@ -19,7 +19,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { getFormattedDateTime } from "@/lib/date";
+import { getFormattedRelativeDateTime } from "@/lib/date";
 
 export function CardTab() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -147,7 +147,7 @@ export function CardTab() {
                   <p className="font-medium">{transaction.title}</p>
                   <p className="text-xs text-muted-foreground">
                     {/* {getFormattedDateTime(transaction.date)} */}
-                    {getFormattedDateTime(transaction.date)}
+                    {getFormattedRelativeDateTime(transaction.date)}
                   </p>
                 </div>
               </div>

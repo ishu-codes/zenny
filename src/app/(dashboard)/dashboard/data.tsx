@@ -58,7 +58,7 @@ export const CARDS: CardInterface[] = [
     theme: "green",
   },
   {
-    title: "International",
+    title: "International Debit Card",
     number: "3456-7812-3456-7812",
     name: "Mr. & Mrs. Coder",
     theme: "blue",

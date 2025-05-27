@@ -16,7 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { getFormattedDateTime } from "@/lib/date";
+import { getFormattedRelativeDateTime } from "@/lib/date";
 import { EVENTS, COLORS, type Event } from "./data";
 
 export function CalendarTab() {
@@ -47,7 +47,7 @@ export function CalendarTab() {
           <div className={`border-l-4 pl-4 border-${COLORS[event.importance]}`}>
             <p className="font-medium">{event.title}</p>
             <p className="text-xs text-muted-foreground">
-              {getFormattedDateTime(event.date)}
+              {getFormattedRelativeDateTime(event.date)}
             </p>
           </div>
         </div>

@@ -151,7 +151,7 @@
 }
 
 button {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .calendar table tr {
