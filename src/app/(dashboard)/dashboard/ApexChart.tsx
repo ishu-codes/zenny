@@ -97,6 +97,52 @@ const ApexChart: React.FC<ApexChartProps> = ({
         height={height ?? "auto"}
       />
     );
+
+  if (["radialBar"].includes(type))
+    return (
+      <Chart
+        options={{
+          labels: labels,
+          chart: {
+            background: theme === "dark" ? "#1c1832" : "#fff",
+          },
+          radialBar: {
+            hollow: {
+              margin: 15,
+              size: "10%",
+              imageWidth: 100,
+            },
+            strokeWidth: "0%",
+          },
+
+          dataLabels: {
+            showOn: "always",
+            name: {
+              offsetY: -10,
+              show: true,
+              color: "#888",
+              fontSize: "13px",
+            },
+            value: {
+              color: "#111",
+              fontSize: "30px",
+              show: true,
+            },
+          },
+
+          theme: { mode: theme ?? "light" },
+          colors: theme === "dark" ? DARK_THEME_COLORS : LIGHT_THEME_COLORS,
+
+          stroke: { lineCap: "round", width: 0.5 },
+          markers: { size: 10 },
+          grid: { borderColor: "#7083ac22" },
+        }}
+        series={values}
+        type={type}
+        width={width ?? "auto"}
+        height={height ?? "auto"}
+      />
+    );
   return (
     <Chart
       options={{

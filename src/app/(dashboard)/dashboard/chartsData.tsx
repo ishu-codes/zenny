@@ -2,6 +2,7 @@ import {
   BanknoteArrowDown,
   BanknoteArrowUp,
   Bath,
+  // Bolt,
   CircleEllipsis,
   Coins,
   // ChevronLast,
@@ -11,6 +12,7 @@ import {
   Drama,
   Gift,
   House,
+  // HouseIcon,
   Plane,
   Podcast,
   Sparkles,
@@ -65,7 +67,8 @@ export const TRANSACTION_CATEGORIES = {
   HYGIENE: { id: 4, icon: <Bath /> },
   HEALTH: { id: 5, icon: <Cross /> },
   GIFT: { id: 5, icon: <Gift /> },
-  OTHER: { id: 6, icon: <CircleEllipsis /> },
+  HOME: { id: 6, icon: <House /> },
+  OTHER: { id: 7, icon: <CircleEllipsis /> },
 };
 
 export const EXPENSES_NECESSITY = {
@@ -157,5 +160,44 @@ export const TRANSACTIONS: TransactionInterface[] = [
     amount: 120,
     dateTime: new Date("2025-05-27 20:30"),
     type: "DEBIT",
+  },
+];
+
+export type BillInterface = {
+  id: string;
+  title: string;
+  desc?: string;
+  category: keyof typeof TRANSACTION_CATEGORIES;
+  necessity?: keyof typeof EXPENSES_NECESSITY;
+  amount: number;
+  dateTime: Date;
+  type: keyof typeof TRANSACTION_TYPES;
+  autopay?: keyof typeof AUTOPAY_TYPES;
+};
+
+export const PENDING_BILLS: BillInterface[] = [
+  {
+    id: "1",
+    title: "House rent",
+    amount: 10000,
+    category: "HOME",
+    type: "DEBIT",
+    dateTime: new Date("2025-06-01 00:00"),
+  },
+  {
+    id: "2",
+    title: "Electricity",
+    amount: 2000,
+    category: "HOME",
+    type: "DEBIT",
+    dateTime: new Date("2025-06-02 00:00"),
+  },
+  {
+    id: "3",
+    title: "YouTube Premium",
+    amount: 89,
+    category: "ENTERTAINMENT",
+    type: "DEBIT",
+    dateTime: new Date("2025-06-05 00:00"),
   },
 ];
