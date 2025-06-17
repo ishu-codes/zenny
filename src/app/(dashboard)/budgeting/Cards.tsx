@@ -1,7 +1,13 @@
 "use client";
 
 import { use, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +22,10 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 import { CircleProgress } from "@/components/ui/circle-progress";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import ProgressBar2 from "@/components/charts/ProgressBar2";
+import { getFormattedCurrency } from "@/lib/currency";
 
 export const MONTHLY_EXPENSES = {
   labels: ["Dec", "Jan", "Feb", "Mar", "Apr"],
@@ -27,23 +37,35 @@ export const MONTHLY_EXPENSES = {
 
 export default function Cards() {
   const [currentBill, setCurrentBill] = useState<BillInterface | null>();
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const bills = PENDING_BILLS.sort(
     (a, b) => a.dateTime.getTime() - b.dateTime.getTime()
   );
 
-  const handleBillClick = (bill: BillInterface) => {
-    setCurrentBill(bill);
-    // setDialogOpen(true);
+  const handleBillClick = (bill: BillInterface | null) => {
+    if (bill == null) {
+      setDialogOpen(false);
+      setTimeout(() => setCurrentBill(null), 200);
+    } else {
+      setCurrentBill(bill);
+      setDialogOpen(true);
+    }
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
       <Card className="col-span-2">
-        <CardHeader>
-          <CardTitle>Expenditure</CardTitle>
+        <CardHeader className="flex justify-between">
+          <CardTitle className="text-lg">Expenditure</CardTitle>
+          <Link
+            href={"/budgeting/budgets"}
+            className="font-base text-xs text-muted-foreground border border-transparent hover:border-border px-3 py-2 rounded-md"
+          >
+            View all
+          </Link>
         </CardHeader>
-        <div className="grid grid-cols-2 lg:grid-cols-3 justify-between">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 justify-between">
           {[
             { title: "Grocery", expenditure: 3568, total: 5000 },
             { title: "Vegetables", expenditure: 2030, total: 3000 },
@@ -53,7 +75,7 @@ export default function Cards() {
               <h2 className="text-center">{expense.title}</h2>
               <div className="group relative transition-all duration-300">
                 <CircleProgress
-                  className="group-hover:hidden"
+                  className="group-hover:opacity-0 transition-opacity duration-300"
                   value={expense.expenditure}
                   maxValue={expense.total}
                   size={140}
@@ -66,45 +88,45 @@ export default function Cards() {
                   }}
                 />
                 <CircleProgress
-                  className="hidden group-hover:block stroke-emerald-500"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 stroke-emerald-500"
                   value={expense.total - expense.expenditure}
                   maxValue={expense.total}
                   size={140}
                   strokeWidth={8}
                   counterClockwise={true}
                 />
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <div className="absolute inset-0 flex flex-col items-center justify-center group-hover:opacity-0 transition-opacity duration-200">
                   <div className="text-2xl font-bold">
-                    <span className="group-hover:hidden">
-                      &#8377; {expense.expenditure}
-                    </span>
-                    <span className="hidden group-hover:block">
-                      &#8377; {expense.total - expense.expenditure}
-                    </span>
+                    &#8377; {getFormattedCurrency(expense.expenditure)}
                   </div>
                   <div className="text-xs text-gray-500">
-                    <span className="group-hover:hidden">
-                      / &#8377; {expense.total}
-                    </span>
-                    <span className="hidden group-hover:block">
-                      amount left
-                    </span>
+                    / &#8377; {getFormattedCurrency(expense.total)}
                   </div>
+                </div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <div className="text-2xl font-bold">
+                    &#8377;{" "}
+                    {getFormattedCurrency(expense.total - expense.expenditure)}
+                  </div>
+                  <div className="text-xs text-gray-500">amount left</div>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </Card>
-      <Card className="row-span-2">
-        <CardHeader>
-          <CardTitle>Pending Bills</CardTitle>
+      <Card className="row-span-2 col-span-2 lg:col-span-1">
+        <CardHeader className="flex justify-between">
+          <CardTitle className="text-lg">Pending Bills</CardTitle>
+          <Link
+            href={"/budgeting/budgets"}
+            className="font-base text-xs text-muted-foreground border border-transparent hover:border-border px-3 py-2 rounded-md"
+          >
+            View all
+          </Link>
         </CardHeader>
         <CardContent>
-          <Dialog
-            open={!!currentBill}
-            onOpenChange={() => setCurrentBill(null)}
-          >
+          <Dialog open={dialogOpen} onOpenChange={() => handleBillClick(null)}>
             {/* <DialogTrigger>s</DialogTrigger> */}
             <DialogContent>
               <DialogHeader>
@@ -181,13 +203,33 @@ export default function Cards() {
                     }
                   >
                     {"₹"}&nbsp;
-                    {bill?.amount}
+                    {getFormattedCurrency(bill?.amount)}
                   </p>
                 </div>
               </div>
             ))}
           </div>
         </CardContent>
+      </Card>
+      <Card className="col-span-2">
+        <CardHeader className="flex justify-between">
+          <CardTitle className="text-lg">Goals & Savings</CardTitle>
+          <Link
+            href={"/budgeting/goals-and-savings"}
+            className="font-base text-xs text-muted-foreground border border-transparent hover:border-border px-3 py-2 rounded-md"
+          >
+            View all
+          </Link>
+        </CardHeader>
+        <div className="px-8 grid grid-cols-1 lg:grid-cols-3 gap-8 justify-between">
+          {[
+            { title: "Car", actual: 574000, total: 1200000 },
+            { title: "House", actual: 3260000, total: 12000000 },
+            { title: "Emergency Fund", actual: 482000, total: 600000 },
+          ].map((progress, idx) => (
+            <ProgressBar2 key={idx} progress={progress} />
+          ))}
+        </div>
       </Card>
     </div>
   );

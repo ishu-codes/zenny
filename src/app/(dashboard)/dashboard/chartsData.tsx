@@ -179,7 +179,7 @@ export const PENDING_BILLS: BillInterface[] = [
   {
     id: "1",
     title: "House rent",
-    amount: 10000,
+    amount: 10250,
     category: "HOME",
     type: "DEBIT",
     dateTime: new Date("2025-06-01 00:00"),
