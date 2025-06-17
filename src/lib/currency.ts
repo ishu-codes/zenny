@@ -11,7 +11,7 @@ export function getFormattedCurrency(value: number, actual: boolean = false) {
 
   if (n == 4) return strValue.substring(0, 1) + "," + strValue.substring(1);
 
-  if (!actual)
+  if (!actual && n !== 4)
     for (const { digits, suffix } of SUFFIXES) {
       if (digits < n) {
         const afterDecimal = strValue.substring(n - digits, n - digits + 2);
@@ -26,8 +26,8 @@ export function getFormattedCurrency(value: number, actual: boolean = false) {
 
   let result = strValue.substring(n - 3);
   let i = 5;
-  while (i < n) {
-    result = strValue.substring(n - i, n - i - 2) + "," + result;
+  while (i <= n) {
+    result = strValue.substring(n - i, n - i + 2) + "," + result;
     i += 2;
   }
   return result;

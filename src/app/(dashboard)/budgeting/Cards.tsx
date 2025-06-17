@@ -1,19 +1,10 @@
 "use client";
 
-import { use, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import ApexChart from "../dashboard/ApexChart";
 import { BillInterface, PENDING_BILLS } from "../dashboard/chartsData";
-import { getFormattedDateTime, getFormattedRelativeDateTime } from "@/lib/date";
+import { getFormattedRelativeDateTime } from "@/lib/date";
 import { TRANSACTION_CATEGORIES } from "../dashboard/chartsData";
 import {
   Dialog,
@@ -22,7 +13,6 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 import { CircleProgress } from "@/components/ui/circle-progress";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ProgressBar2 from "@/components/charts/ProgressBar2";
 import { getFormattedCurrency } from "@/lib/currency";
@@ -69,7 +59,7 @@ export default function Cards() {
           {[
             { title: "Grocery", expenditure: 3568, total: 5000 },
             { title: "Vegetables", expenditure: 2030, total: 3000 },
-            { title: "Milk", expenditure: 2030, total: 2400 },
+            { title: "Milk", expenditure: 2146, total: 2400 },
           ].map((expense, idx) => (
             <div className="flex flex-col items-center gap-2" key={idx}>
               <h2 className="text-center">{expense.title}</h2>
@@ -163,7 +153,8 @@ export default function Cards() {
                     }
                   >
                     {"₹"}&nbsp;
-                    {currentBill?.amount}
+                    {currentBill &&
+                      getFormattedCurrency(currentBill?.amount, true)}
                   </p>
                 </div>
               </div>

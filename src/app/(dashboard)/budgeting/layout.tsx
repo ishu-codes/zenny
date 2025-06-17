@@ -22,16 +22,7 @@ export default function BudgetingLayout({ children }: { children: ReactNode }) {
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}
         />
-        {/* {sidebarOpen ? (
-          <div className="">
-            <NavLinks />
-          </div>
-        ) : (
-          <div className="">
-            <NavLinks />
-          </div>
-        )} */}
-        <NavLinks sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <NavLinks sidebarOpen={sidebarOpen} />
       </div>
 
       <section className="flex-1">{children}</section>
@@ -39,13 +30,7 @@ export default function BudgetingLayout({ children }: { children: ReactNode }) {
   );
 }
 
-const NavLinks = ({
-  sidebarOpen,
-  setSidebarOpen,
-}: {
-  sidebarOpen: boolean;
-  setSidebarOpen: Dispatch<SetStateAction<boolean>>;
-}) => {
+const NavLinks = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
   const pathname = usePathname();
   return (
     <div
