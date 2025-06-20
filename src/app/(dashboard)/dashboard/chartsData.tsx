@@ -2,6 +2,9 @@ import {
   BanknoteArrowDown,
   BanknoteArrowUp,
   Bath,
+  Blend,
+  BriefcaseBusiness,
+  CircleCheck,
   // Bolt,
   CircleEllipsis,
   Coins,
@@ -66,9 +69,10 @@ export const TRANSACTION_CATEGORIES = {
   ENTERTAINMENT: { id: 3, icon: <Drama /> },
   HYGIENE: { id: 4, icon: <Bath /> },
   HEALTH: { id: 5, icon: <Cross /> },
-  GIFT: { id: 5, icon: <Gift /> },
-  HOME: { id: 6, icon: <House /> },
-  OTHER: { id: 7, icon: <CircleEllipsis /> },
+  GIFT: { id: 6, icon: <Gift /> },
+  HOME: { id: 7, icon: <House /> },
+  WORK: { id: 8, icon: <BriefcaseBusiness /> },
+  OTHER: { id: 9, icon: <CircleEllipsis /> },
 };
 
 export const EXPENSES_NECESSITY = {
@@ -85,7 +89,8 @@ export const TRANSACTION_TYPES = {
 export const AUTOPAY_TYPES = {
   SUBSCRIPTION: { icon: <Podcast /> },
   EMI: { icon: <Coins /> },
-  RENT: { icon: <House /> },
+  RENT: { icon: <Blend /> },
+  BILL: { icon: <CircleCheck /> },
 };
 
 export type TransactionInterface = {
@@ -199,5 +204,89 @@ export const PENDING_BILLS: BillInterface[] = [
     category: "ENTERTAINMENT",
     type: "DEBIT",
     dateTime: new Date("2025-06-05 00:00"),
+  },
+];
+
+export const FREQUENCIES = {
+  DAILY: {},
+  WEEKLY: {},
+  MONTHLY: {},
+};
+
+export type BudgetInterface = {
+  id: string;
+  title: string;
+  desc?: string;
+  category: keyof typeof TRANSACTION_CATEGORIES;
+  necessity?: keyof typeof EXPENSES_NECESSITY;
+  amount: number;
+  frequency: keyof typeof FREQUENCIES;
+  frequencyValue: string;
+  type: "DEBIT" | "CREDIT";
+  isFixed: boolean;
+  autopay?: keyof typeof AUTOPAY_TYPES;
+};
+export const BUDGETS: BudgetInterface[] = [
+  {
+    id: "1",
+    title: "House Rent",
+    desc: "",
+    category: "HOME",
+    necessity: "ESSENTIAL",
+    amount: 10250,
+    frequency: "MONTHLY",
+    frequencyValue: "1",
+    type: "DEBIT",
+    isFixed: true,
+    autopay: "RENT",
+  },
+  {
+    id: "2",
+    title: "Electricity Bill",
+    desc: "",
+    category: "HOME",
+    necessity: "ESSENTIAL",
+    amount: 2000,
+    frequency: "MONTHLY",
+    frequencyValue: "1",
+    type: "DEBIT",
+    isFixed: true,
+    autopay: "BILL",
+  },
+  {
+    id: "3",
+    title: "YouTube Subscription",
+    desc: "",
+    category: "ENTERTAINMENT",
+    necessity: "DESIRABLE",
+    amount: 89,
+    frequency: "MONTHLY",
+    frequencyValue: "13",
+    type: "DEBIT",
+    isFixed: true,
+    autopay: "SUBSCRIPTION",
+  },
+  {
+    id: "4",
+    title: "Grocery",
+    desc: "",
+    category: "FOOD",
+    necessity: "ESSENTIAL",
+    amount: 5000,
+    frequency: "MONTHLY",
+    frequencyValue: "13",
+    type: "DEBIT",
+    isFixed: false,
+  },
+  {
+    id: "5",
+    title: "Salary",
+    desc: "",
+    category: "WORK",
+    amount: 125000,
+    frequency: "MONTHLY",
+    frequencyValue: "2",
+    type: "CREDIT",
+    isFixed: true,
   },
 ];
