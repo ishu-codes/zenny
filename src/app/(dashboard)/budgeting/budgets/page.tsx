@@ -8,7 +8,9 @@ import CurrentBudget from "./CurrentBudget";
 export default function Page() {
   const [fixedBudgets, setFixedBudgets] = useState<BudgetInterface[]>();
   const [variableBudgets, setVariableBudgets] = useState<BudgetInterface[]>();
-  const [currentBudget, setCurrentBudget] = useState<BudgetInterface>();
+  const [currentBudget, setCurrentBudget] = useState<BudgetInterface>(
+    BUDGETS[0]
+  );
 
   useEffect(() => {
     setFixedBudgets(

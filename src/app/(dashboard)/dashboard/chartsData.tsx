@@ -290,3 +290,52 @@ export const BUDGETS: BudgetInterface[] = [
     isFixed: true,
   },
 ];
+
+export type GoalInterface = {
+  id: string;
+  title: string;
+  desc: string;
+  category: keyof typeof TRANSACTION_CATEGORIES;
+  necessity?: keyof typeof EXPENSES_NECESSITY;
+  completed: number;
+  total: number;
+};
+
+export const GOALS: GoalInterface[] = [
+  {
+    id: "1",
+    title: "Car",
+    desc: "5 Seater Prime Sedan for family",
+    category: "TRAVEL",
+    necessity: "DESIRABLE",
+    completed: 574000,
+    total: 1200000,
+  },
+  {
+    id: "2",
+    title: "House",
+    desc: "A new house in Vile Parle",
+    category: "HOME",
+    necessity: "DESIRABLE",
+    completed: 3260000,
+    total: 12000000,
+  },
+  {
+    id: "3",
+    title: "Emergency Fund",
+    desc: "For emergency needs",
+    category: "OTHER",
+    necessity: "ESSENTIAL",
+    completed: 482000,
+    total: 600000,
+  },
+  {
+    id: "4",
+    title: "Bungalow",
+    desc: "A lavish bungalow for my family",
+    category: "HOME",
+    necessity: "TRIVIAL",
+    completed: 5424860,
+    total: 12500000,
+  },
+];

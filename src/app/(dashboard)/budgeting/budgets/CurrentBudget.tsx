@@ -112,7 +112,7 @@ export default function CurrentBudget({ className, currentBudget }: Props) {
         </CardContent>
       ) : (
         <div className="h-full flex flex-col items-center justify-center">
-          No Buget Selected!
+          Select any budget to view its information!
         </div>
       )}
     </Card>

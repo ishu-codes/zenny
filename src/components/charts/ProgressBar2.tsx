@@ -11,20 +11,21 @@ export default function ProgressBar2({
   progress: {
     title: string;
     total: number;
-    actual: number;
+    completed: number;
   };
 }) {
   const [value, setValue] = useState<number>(5);
-  const percentage = Math.round((progress.actual / progress.total) * 1000) / 10;
+  const percentage =
+    Math.round((progress.completed / progress.total) * 1000) / 10;
 
   useEffect(() => {
     setTimeout(() => setValue(percentage), 300);
   }, [percentage]);
   return (
-    <div className="py-4">
+    <div>
       <dt className="text-sm text-muted-foreground">{progress.title}</dt>
       <dd className="text-2xl font-semibold text-foreground">
-        &#8377; {getFormattedCurrency(progress.actual)}
+        &#8377; {getFormattedCurrency(progress.completed)}
       </dd>
       <Progress value={value} className="mt-6 h-2" />
       <dd className="mt-2 flex items-center justify-between text-sm">

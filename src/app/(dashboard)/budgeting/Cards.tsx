@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { BillInterface, PENDING_BILLS } from "../dashboard/chartsData";
+import { BillInterface, GOALS, PENDING_BILLS } from "../dashboard/chartsData";
 import { getFormattedRelativeDateTime } from "@/lib/date";
 import { TRANSACTION_CATEGORIES } from "../dashboard/chartsData";
 import {
@@ -213,11 +213,7 @@ export default function Cards() {
           </Link>
         </CardHeader>
         <div className="px-8 grid grid-cols-1 lg:grid-cols-3 gap-8 justify-between">
-          {[
-            { title: "Car", actual: 574000, total: 1200000 },
-            { title: "House", actual: 3260000, total: 12000000 },
-            { title: "Emergency Fund", actual: 482000, total: 600000 },
-          ].map((progress, idx) => (
+          {GOALS.slice(0, 3).map((progress, idx) => (
             <ProgressBar2 key={idx} progress={progress} />
           ))}
         </div>

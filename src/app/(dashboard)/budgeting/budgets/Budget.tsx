@@ -13,7 +13,7 @@ interface Props {
   title: string;
   budgets?: BudgetInterface[];
   currentBudget?: BudgetInterface;
-  setCurrentBudget: Dispatch<SetStateAction<BudgetInterface | undefined>>;
+  setCurrentBudget: Dispatch<SetStateAction<BudgetInterface>>;
 }
 
 export default function Budget({
