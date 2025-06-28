@@ -28,7 +28,7 @@ import {
   TRANSACTION_TYPES,
   AUTOPAY_TYPES,
   type TransactionInterface,
-} from "../dashboard/chartsData";
+} from "../../dashboard/chartsData";
 import { titleCase } from "@/lib/data";
 
 const formSchema = z.object({

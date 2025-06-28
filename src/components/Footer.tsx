@@ -5,7 +5,10 @@ export default function Footer() {
   return (
     <div className="w-full flex items-center justify-between px-2 md:px-8 pb-20 md:pb-4">
       <p className="text-muted-foreground text-xs md:text-sm">
-        &copy; Copyright Ishu | All Rights Reserved
+        &copy; Copyright Ishu
+      </p>
+      <p className="text-muted-foreground text-xs md:text-sm">
+        All Rights Reserved
       </p>
       <div className="w-[7rem] flex gap-8 scale-50 right-0">
         {[

@@ -11,7 +11,7 @@ import {
   TRANSACTION_CATEGORIES,
   TRANSACTION_TYPES,
   TransactionInterface,
-} from "../dashboard/chartsData";
+} from "../../dashboard/chartsData";
 import { Badge } from "@/components/ui/badge";
 
 export default function TransactionHistory() {
