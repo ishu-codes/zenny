@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { TrendingDown, TrendingUp } from "lucide-react";
-import { Progress } from "@/components/charts/ProgressBar";
+import ProgressBar from "@/components/charts/ProgressBar";
 import {
   Card,
   CardHeader,
@@ -18,7 +18,10 @@ import {
   SHORT_INFO,
   MONTHLY_EXPENSES,
   EXPENSES_BY_CATEGORIES,
+  GOALS,
+  SMART_TIPS,
 } from "./chartsData";
+import SmartTips from "./SmartTips";
 
 export const metadata: Metadata = {
   title: "Dashboard | Zenny",
@@ -112,46 +115,23 @@ export default function DashboardPage() {
         </Card>
 
         {/* Gloas & Savings */}
-        <Card className="">
+        <Card className={`${SMART_TIPS.length > 0 ? "" : "col-span-2"}`}>
           <CardHeader>
             <CardTitle>Goals & Savings</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col gap-6">
-            {[
-              { title: "Car", value: 45, color: "#E76E50" },
-              { title: "House", value: 35, color: "#2A9D90" },
-              { title: "Villa", value: 54, color: "#274754" },
-            ].map((progress) => (
-              <div className="flex flex-col" key={progress.title}>
-                <h2 className="flex items-center justify-between">
-                  <span className="text-sm">{progress.title}</span>
-                  <span className="text-sm text-muted-foreground">
-                    {progress.value}%
-                  </span>
-                </h2>
-                <Progress
-                  className="h-4 rounded-md"
-                  color={progress.color}
-                  value={progress.value}
-                />
-              </div>
-            ))}
+          <CardContent className={`grid ${SMART_TIPS.length > 0 ? "grid-cols-2": "grid-cols-3"} gap-6`}>
+            {GOALS.sort((a, b) => b.total - a.total)
+              .slice(0, 4)
+              .map((progress, idx) => (
+                <div className="flex flex-col" key={idx}>
+                  <ProgressBar progress={progress} />
+                </div>
+              ))}
           </CardContent>
         </Card>
 
         {/* Smart Tips */}
-        <Card className="">
-          <CardHeader>
-            <CardTitle>Smart Tips</CardTitle>
-            <CardDescription>Card Description</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p>Card Content</p>
-          </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
-        </Card>
+        {SMART_TIPS.length > 0 && <SmartTips />}
       </div>
     </div>
   );

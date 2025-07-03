@@ -339,3 +339,23 @@ export const GOALS: GoalInterface[] = [
     total: 12500000,
   },
 ];
+
+export type SMART_TIPS_INTERFACE = {
+  title: string;
+  desc: string;
+}
+
+export const SMART_TIPS: SMART_TIPS_INTERFACE[] = [
+  {
+    title: "You can save upto 40% of your monthly expenses",
+    desc: "Reduce trivial food consumption (like burger) from 4 days to 2 days in a week.",
+  },
+  {
+    title: "You can save upto 60% of your monthly expenses",
+    desc: "Reduce trivial food consumption (like burger) from 4 days to 2 days in a week.",
+  },
+  {
+    title: "You can save upto 80% of your monthly expenses",
+    desc: "Reduce trivial food consumption (like burger) from 4 days to 2 days in a week.",
+  },
+];

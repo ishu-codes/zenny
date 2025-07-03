@@ -1,52 +1,36 @@
 "use client";
 
-import * as React from "react";
-import * as ProgressPrimitive from "@radix-ui/react-progress";
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
+// import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { getFormattedCurrency } from "@/lib/currency";
 
-interface ProgressProps extends React.ComponentPropsWithoutRef<"div"> {
-  value: number;
-  max?: number;
-  color?: string;
-}
+export default function ProgressBar({
+  progress,
+}: {
+  progress: {
+    title: string;
+    total: number;
+    completed: number;
+  };
+}) {
+  const [value, setValue] = useState<number>(5);
+  const percentage =
+    Math.round((progress.completed / progress.total) * 1000) / 10;
 
-const Progress: React.FC<ProgressProps> = ({
-  color = "#000",
-  className,
-  value,
-  max = 100,
-  ...props
-}) => {
-  const [progress, setProgress] = React.useState<number>(1);
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => setProgress(value), 250);
-    return () => clearTimeout(timer);
-  }, [value]);
-
+  useEffect(() => {
+    setTimeout(() => setValue(percentage), 300);
+  }, [percentage]);
   return (
-    <ProgressPrimitive.Root
-      data-slot="progress"
-      className={cn(
-        "relative h-2 w-full overflow-hidden rounded-full bg-primary/10",
-        className
-      )}
-      value={value}
-      max={max}
-      {...props}
-    >
-      <ProgressPrimitive.Indicator
-        data-slot="progress-indicator"
-        className={cn(
-          `bg-primary h-full transition-all duration-300 rounded-xl`
-        )}
-        style={{
-          transform: `translateX(-${100 - (progress / max) * 100}%)`,
-          backgroundColor: color,
-        }}
-      />
-    </ProgressPrimitive.Root>
+    <div className="space-y-2">
+      <dt className="text-sm">{progress.title}</dt>
+      <Progress value={value} className="h-2" />
+      <dd className="mt-2 flex items-center justify-between text-sm">
+        <span className="text-primary">{percentage}%</span>
+        <span className="text-muted-foreground">
+          &#8377; {getFormattedCurrency(progress.total)}
+        </span>
+      </dd>
+    </div>
   );
-};
-
-export { Progress };
+}
