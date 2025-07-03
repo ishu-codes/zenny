@@ -18,6 +18,7 @@ import {
   EXPENSES_BY_CATEGORIES,
 } from "@/app/(dashboard)/dashboard/chartsData";
 import ApexChart from "@/app/(dashboard)/dashboard/ApexChart";
+import { getFormattedCurrency } from "@/lib/currency";
 
 export const metadata: Metadata = {
   title: "Transactions | Zenny",
@@ -32,31 +33,25 @@ export default function TransactionsPage() {
           <Card key={info.title}>
             <CardHeader>
               <CardDescription>{info.title}</CardDescription>
-              <CardTitle className="text-2xl">&#8377; {info.value}</CardTitle>
+              <CardTitle className="text-2xl">
+                &#8377; {getFormattedCurrency(info.currentPeriod)}
+              </CardTitle>
             </CardHeader>
             {/* <Separator orientation="horizontal" className="px-4" /> */}
-            <CardFooter className="flex justify-between flex-wrap items-start text-sm">
-              <CardDescription>
-                {info.percentageChange > 0 ? (
-                  <div className="flex gap-1 text-sm text-emerald-600 dark:text-emerald-400">
-                    <TrendingUp size={20} />
-                    <span className="font-medium">
-                      {info.percentageChange}&#37;
-                    </span>
-                  </div>
-                ) : (
-                  <div className="flex gap-1 text-sm text-red-600 dark:text-red-400">
-                    <TrendingDown size={20} />
-                    <span className="font-medium">
-                      {info.percentageChange}&#37;
-                    </span>
-                  </div>
-                )}
-              </CardDescription>
-              <CardDescription>
-                Last month:&nbsp;&nbsp;&#8377; {info.lastMonth}
-              </CardDescription>
-            </CardFooter>
+            {info?.lastPeriod && info?.lastPeriod != 0 && (
+              <CardFooter className="flex justify-between flex-wrap items-start text-sm">
+                <CardDescription>
+                  <PercentageChange
+                    initial={info?.lastPeriod}
+                    final={info?.currentPeriod}
+                  />
+                </CardDescription>
+                <CardDescription>
+                  Last month:&nbsp;&nbsp;&#8377;{" "}
+                  {getFormattedCurrency(info?.lastPeriod)}
+                </CardDescription>
+              </CardFooter>
+            )}
           </Card>
         ))}
       </div>
@@ -104,3 +99,24 @@ export default function TransactionsPage() {
     </div>
   );
 }
+
+const PercentageChange = ({
+  initial,
+  final,
+}: {
+  initial: number;
+  final: number;
+}) => {
+  const percentageChange = (final / initial - 1) * 100;
+  return percentageChange > 0 ? (
+    <div className="flex gap-1 text-sm text-emerald-600 dark:text-emerald-400">
+      <TrendingUp size={20} />
+      <span className="font-medium">{percentageChange.toFixed(1)}&#37;</span>
+    </div>
+  ) : (
+    <div className="flex gap-1 text-sm text-red-600 dark:text-red-400">
+      <TrendingDown size={20} />
+      <span className="font-medium">{percentageChange.toFixed(1)}&#37;</span>
+    </div>
+  );
+};

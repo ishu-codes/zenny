@@ -22,6 +22,7 @@ import {
   SMART_TIPS,
 } from "./chartsData";
 import SmartTips from "./SmartTips";
+import { getFormattedCurrency } from "@/lib/currency";
 
 export const metadata: Metadata = {
   title: "Dashboard | Zenny",
@@ -37,31 +38,25 @@ export default function DashboardPage() {
           <Card key={info.title}>
             <CardHeader>
               <CardDescription>{info.title}</CardDescription>
-              <CardTitle className="text-2xl">&#8377; {info.value}</CardTitle>
+              <CardTitle className="text-2xl">
+                &#8377; {getFormattedCurrency(info.currentPeriod)}
+              </CardTitle>
             </CardHeader>
             {/* <Separator orientation="horizontal" className="px-4" /> */}
-            <CardFooter className="flex justify-between flex-wrap items-start text-sm">
-              <CardDescription>
-                {info.percentageChange > 0 ? (
-                  <div className="flex gap-1 text-sm text-emerald-600 dark:text-emerald-400">
-                    <TrendingUp size={20} />
-                    <span className="font-medium">
-                      {info.percentageChange}&#37;
-                    </span>
-                  </div>
-                ) : (
-                  <div className="flex gap-1 text-sm text-red-600 dark:text-red-400">
-                    <TrendingDown size={20} />
-                    <span className="font-medium">
-                      {info.percentageChange}&#37;
-                    </span>
-                  </div>
-                )}
-              </CardDescription>
-              <CardDescription>
-                Last month:&nbsp;&nbsp;&#8377; {info.lastMonth}
-              </CardDescription>
-            </CardFooter>
+            {info?.lastPeriod && info?.lastPeriod != 0 && (
+              <CardFooter className="flex justify-between flex-wrap items-start text-sm">
+                <CardDescription>
+                  <PercentageChange
+                    initial={info?.lastPeriod}
+                    final={info?.currentPeriod}
+                  />
+                </CardDescription>
+                <CardDescription>
+                  Last month:&nbsp;&nbsp;&#8377;{" "}
+                  {getFormattedCurrency(info?.lastPeriod)}
+                </CardDescription>
+              </CardFooter>
+            )}
           </Card>
         ))}
       </div>
@@ -98,13 +93,13 @@ export default function DashboardPage() {
 
         {/* Card & Transactions */}
         <Card className="row-span-2">
-          <CardContent>
+          <CardContent className="px-0">
             <Tabs defaultValue="calendar" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 bg-background">
+              <TabsList className="grid w-[calc(100%-48px)] grid-cols-2 bg-background mx-auto">
                 <TabsTrigger value="calendar">Calendar</TabsTrigger>
                 <TabsTrigger value="cards">Cards & Transactions</TabsTrigger>
               </TabsList>
-              <TabsContent className="pt-2" value="calendar">
+              <TabsContent className="pt-2 px-6" value="calendar">
                 <CalendarTab />
               </TabsContent>
               <TabsContent className="pt-2" value="cards">
@@ -119,7 +114,11 @@ export default function DashboardPage() {
           <CardHeader>
             <CardTitle>Goals & Savings</CardTitle>
           </CardHeader>
-          <CardContent className={`grid ${SMART_TIPS.length > 0 ? "grid-cols-2": "grid-cols-3"} gap-6`}>
+          <CardContent
+            className={`grid ${
+              SMART_TIPS.length > 0 ? "grid-cols-2" : "grid-cols-3"
+            } gap-6`}
+          >
             {GOALS.sort((a, b) => b.total - a.total)
               .slice(0, 4)
               .map((progress, idx) => (
@@ -136,3 +135,24 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+const PercentageChange = ({
+  initial,
+  final,
+}: {
+  initial: number;
+  final: number;
+}) => {
+  const percentageChange = (final / initial - 1) * 100;
+  return percentageChange > 0 ? (
+    <div className="flex gap-1 text-sm text-emerald-600 dark:text-emerald-400">
+      <TrendingUp size={20} />
+      <span className="font-medium">{percentageChange.toFixed(1)}&#37;</span>
+    </div>
+  ) : (
+    <div className="flex gap-1 text-sm text-red-600 dark:text-red-400">
+      <TrendingDown size={20} />
+      <span className="font-medium">{percentageChange.toFixed(1)}&#37;</span>
+    </div>
+  );
+};

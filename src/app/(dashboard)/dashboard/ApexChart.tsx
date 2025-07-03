@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { useTheme } from "next-themes";
+import { getFormattedCurrency } from "@/lib/currency";
 
 interface ApexChartProps {
   labels: string[];
@@ -80,9 +81,11 @@ const ApexChart: React.FC<ApexChartProps> = ({
                     formatter: function (w) {
                       return (
                         "₹ " +
-                        w.globals.seriesTotals.reduce((a, b) => {
-                          return a + b;
-                        }, 0)
+                        getFormattedCurrency(
+                          w.globals.seriesTotals.reduce((a, b) => {
+                            return a + b;
+                          }, 0)
+                        )
                       );
                     },
                   },

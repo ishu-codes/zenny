@@ -1,4 +1,4 @@
-export const getFormattedRelativeDateTime = (dateData) => {
+export const getFormattedRelativeDateTime = (dateData: string | Date) => {
   const selectedDate = new Date(dateData);
 
   const daysGap = selectedDate.getDate() - new Date().getDate();
@@ -29,7 +29,7 @@ export const getFormattedRelativeDateTime = (dateData) => {
   return `${weekday}, ${day} ${month}`;
 };
 
-export const getFormattedDateTime = (dateData) => {
+export const getFormattedDateTime = (dateData: string) => {
   const selectedDate = new Date(dateData);
   const year = new Intl.DateTimeFormat("en", {
     year: "numeric",

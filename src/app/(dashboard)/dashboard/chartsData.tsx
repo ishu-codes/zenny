@@ -27,27 +27,23 @@ import {
 export const SHORT_INFO = [
   {
     title: "Total Balance",
-    value: "4,32,568",
-    percentageChange: 3.12,
-    lastMonth: "28,940",
+    currentPeriod: 432568,
+    lastPeriod: 28940,
   },
   {
     title: "Change this month",
-    value: "2,45,860",
-    percentageChange: 1.98,
-    lastMonth: "21,230",
+    currentPeriod: 245860,
+    lastPeriod: 21230,
   },
   {
     title: "Expenses this month",
-    value: "2,530",
-    percentageChange: -4.78,
-    lastMonth: "26,340",
+    currentPeriod: 12530,
+    lastPeriod: 26340,
   },
   {
     title: "Income this month",
-    value: "24,560",
-    percentageChange: 2.84,
-    lastMonth: "28,940",
+    currentPeriod: 42560,
+    lastPeriod: 28940,
   },
 ];
 
@@ -60,7 +56,7 @@ export const MONTHLY_EXPENSES = {
 };
 export const EXPENSES_BY_CATEGORIES = {
   labels: ["Food", "Travel", "Hygiene", "Others"],
-  values: [100, 80, 60, 20],
+  values: [51200, 36600, 28030, 20100],
 };
 
 export const TRANSACTION_CATEGORIES = {
@@ -343,7 +339,7 @@ export const GOALS: GoalInterface[] = [
 export type SMART_TIPS_INTERFACE = {
   title: string;
   desc: string;
-}
+};
 
 export const SMART_TIPS: SMART_TIPS_INTERFACE[] = [
   {

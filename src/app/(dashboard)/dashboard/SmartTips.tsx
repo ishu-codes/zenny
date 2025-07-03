@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import {
@@ -11,23 +12,35 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { SMART_TIPS } from "./chartsData";
-import { useState } from "react";
 
 export default function SmartTips() {
   const [index, setIndex] = useState<number>(0);
   const [swiperInstance, setSwiperInstance] = useState<any>(null);
 
+  const indexRef = useRef(0);
   const handlePrevTip = () => {
     const newIndex = index > 0 ? index - 1 : SMART_TIPS.length - 1;
     swiperInstance?.slideTo(newIndex);
   };
   const handleNextTip = () => {
-    const newIndex = index < SMART_TIPS.length - 1 ? index + 1 : 0;
+    const newIndex = (index + 1) % SMART_TIPS.length;
     swiperInstance?.slideTo(newIndex);
   };
   const moveTo = (index: number) => {
     swiperInstance?.slideTo(index);
   };
+
+  useEffect(() => {
+    if (!swiperInstance) return;
+
+    const autoSlide = setInterval(() => {
+      const newIndex = (indexRef.current + 1) % SMART_TIPS.length;
+      indexRef.current = newIndex;
+      swiperInstance.slideTo(newIndex);
+    }, 5000);
+
+    return () => clearInterval(autoSlide);
+  }, [swiperInstance]);
 
   return (
     <Card className="overflow-x-hidden">
@@ -42,7 +55,10 @@ export default function SmartTips() {
               spaceBetween={20}
               slidesPerView={1}
               onSwiper={setSwiperInstance}
-              onSlideChange={(e) => setIndex(e.activeIndex)}
+              onSlideChange={(swiper) => {
+                setIndex(swiper.activeIndex);
+                indexRef.current = swiper.activeIndex;
+              }}
               className="cursor-grab active:cursor-grabbing"
             >
               {SMART_TIPS?.map((tip, idx) => (
@@ -50,7 +66,6 @@ export default function SmartTips() {
                   <div
                     key={idx}
                     className="w-full shrink-0 relative text-white overflow-hidden"
-                    // style={{ left: `${(idx - index) * 100}%` }}
                   >
                     <div className="flex flex-col gap-2 whitespace-normal px-6">
                       <h3 className="text-md text-foreground">{tip?.title}</h3>
