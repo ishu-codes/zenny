@@ -19,10 +19,9 @@ import {
 import { getFormattedRelativeDateTime } from "@/lib/date";
 import { EVENTS, EventInterface, EVENT_IMPORTANCE } from "./data";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { titleCase } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { AlarmClockPlus, CheckCheck } from "lucide-react";
+import { DynamicIcon } from "lucide-react/dynamic";
 
 export function CalendarTab() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -132,8 +131,10 @@ export function CalendarTab() {
             </Badge>
           </div>
           <div className="flex gap-2">
-            <div className="p-4 rounded-full bg-primary/10">
-              {EVENT_IMPORTANCE[selectedEvent?.importance || "LOW"].icon}
+            <div className="w-12 h-12 p-3 rounded-full bg-primary/10">
+              <DynamicIcon
+                name={EVENT_IMPORTANCE[selectedEvent?.importance || "LOW"].icon}
+              />
             </div>
             <div className="flex-1 flex justify-between">
               <div className="flex flex-col">

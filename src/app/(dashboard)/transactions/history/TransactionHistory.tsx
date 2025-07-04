@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { getFormattedDateTime, getFormattedRelativeDateTime } from "@/lib/date";
 import { titleCase } from "@/lib/data";
+import { DynamicIcon } from "lucide-react/dynamic";
 import {
   AUTOPAY_TYPES,
   EXPENSES_NECESSITY,
@@ -36,8 +37,10 @@ export default function TransactionHistory() {
             }`}
             onClick={() => setCurrentTransaction(transaction)}
           >
-            <div className="p-3 rounded-full bg-primary/10">
-              {TRANSACTION_CATEGORIES[transaction?.category].icon}
+            <div className="w-12 h-12 p-3 rounded-full bg-primary/10">
+              <DynamicIcon
+                name={TRANSACTION_CATEGORIES[transaction?.category].icon}
+              />
             </div>
             <div className="w-full flex justify-between items-center">
               <div className="">
@@ -87,7 +90,8 @@ export default function TransactionHistory() {
         </div>
         <div className="flex gap-2">
           <div className="w-12 h-12">
-            {currentTransaction.img !== "" ? (
+            {currentTransaction.img !== "" &&
+            process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ? (
               <Image
                 className="w-full h-full rounded-md"
                 src={`https://img.logo.dev/${currentTransaction.img}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}&format=png`}
@@ -96,8 +100,12 @@ export default function TransactionHistory() {
                 height={128}
               />
             ) : (
-              <div className="w-full h-full flex justify-center items-center bg-primary/10 rounded-full">
-                {TRANSACTION_CATEGORIES[currentTransaction?.category].icon}
+              <div className="w-12 h-12 p-3 flex justify-center items-center bg-primary/10 rounded-full">
+                <DynamicIcon
+                  name={
+                    TRANSACTION_CATEGORIES[currentTransaction?.category].icon
+                  }
+                />
               </div>
             )}
           </div>
@@ -138,16 +146,18 @@ export default function TransactionHistory() {
             },
           ].map((info, idx) => (
             <div className="flex flex-col gap-2 items-center" key={idx}>
-              <div className="p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
-                {info.icon}
+              <div className="w-12 h-12 p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
+                <DynamicIcon name={info.icon} />
               </div>
               <p>{titleCase(info.label)}</p>
             </div>
           ))}
           {currentTransaction?.autopay && (
             <div className="flex flex-col gap-2 items-center">
-              <div className="p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
-                {AUTOPAY_TYPES[currentTransaction?.autopay].icon}
+              <div className="w-12 h-12 p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
+                <DynamicIcon
+                  name={AUTOPAY_TYPES[currentTransaction?.autopay].icon}
+                />
               </div>
               <p className="text-wrap">
                 {titleCase(currentTransaction?.autopay)}
@@ -156,8 +166,10 @@ export default function TransactionHistory() {
           )}
           {currentTransaction?.necessity && (
             <div className="flex flex-col gap-2 items-center">
-              <div className="p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
-                {EXPENSES_NECESSITY[currentTransaction?.necessity].icon}
+              <div className="w-12 h-12 p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
+                <DynamicIcon
+                  name={EXPENSES_NECESSITY[currentTransaction?.necessity].icon}
+                />
               </div>
               <p className="text-wrap">
                 {titleCase(currentTransaction?.necessity)}

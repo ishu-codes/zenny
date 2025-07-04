@@ -1,29 +1,3 @@
-import {
-  BanknoteArrowDown,
-  BanknoteArrowUp,
-  Bath,
-  Blend,
-  BriefcaseBusiness,
-  CircleCheck,
-  // Bolt,
-  CircleEllipsis,
-  Coins,
-  // ChevronLast,
-  // ChevronsDown,
-  // ChevronsUp,
-  Cross,
-  Drama,
-  Gift,
-  House,
-  // HouseIcon,
-  Plane,
-  Podcast,
-  Sparkles,
-  Star,
-  StarOff,
-  Utensils,
-} from "lucide-react";
-
 export const SHORT_INFO = [
   {
     title: "Total Balance",
@@ -60,34 +34,34 @@ export const EXPENSES_BY_CATEGORIES = {
 };
 
 export const TRANSACTION_CATEGORIES = {
-  FOOD: { id: 1, icon: <Utensils /> },
-  TRAVEL: { id: 2, icon: <Plane /> },
-  ENTERTAINMENT: { id: 3, icon: <Drama /> },
-  HYGIENE: { id: 4, icon: <Bath /> },
-  HEALTH: { id: 5, icon: <Cross /> },
-  GIFT: { id: 6, icon: <Gift /> },
-  HOME: { id: 7, icon: <House /> },
-  WORK: { id: 8, icon: <BriefcaseBusiness /> },
-  OTHER: { id: 9, icon: <CircleEllipsis /> },
-};
+  FOOD: { id: 1, icon: "utensils" },
+  TRAVEL: { id: 2, icon: "plane" },
+  ENTERTAINMENT: { id: 3, icon: "drama" },
+  HYGIENE: { id: 4, icon: "bath" },
+  HEALTH: { id: 5, icon: "cross" },
+  GIFT: { id: 6, icon: "gift" },
+  HOME: { id: 7, icon: "house" },
+  WORK: { id: 8, icon: "briefcase-business" },
+  OTHER: { id: 9, icon: "circle-ellipsis" },
+} as const;
 
 export const EXPENSES_NECESSITY = {
-  TRIVIAL: { icon: <StarOff /> },
-  DESIRABLE: { icon: <Star /> },
-  ESSENTIAL: { icon: <Sparkles /> },
-};
+  TRIVIAL: { icon: "star-off" },
+  DESIRABLE: { icon: "star" },
+  ESSENTIAL: { icon: "sparkles" },
+} as const;
 
 export const TRANSACTION_TYPES = {
-  DEBIT: { icon: <BanknoteArrowDown /> },
-  CREDIT: { icon: <BanknoteArrowUp /> },
-};
+  DEBIT: { icon: "banknote-arrow-down" },
+  CREDIT: { icon: "banknote-arrow-up" },
+} as const;
 
 export const AUTOPAY_TYPES = {
-  SUBSCRIPTION: { icon: <Podcast /> },
-  EMI: { icon: <Coins /> },
-  RENT: { icon: <Blend /> },
-  BILL: { icon: <CircleCheck /> },
-};
+  SUBSCRIPTION: { icon: "podcast" },
+  EMI: { icon: "coins" },
+  RENT: { icon: "blend" },
+  BILL: { icon: "circle-check" },
+} as const;
 
 export type TransactionInterface = {
   id: number;

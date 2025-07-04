@@ -7,6 +7,7 @@ import {
   BudgetInterface,
 } from "../../dashboard/chartsData";
 import { getFormattedCurrency } from "@/lib/currency";
+import { DynamicIcon } from "lucide-react/dynamic";
 
 interface Props {
   className?: string;
@@ -41,11 +42,13 @@ export default function Budget({
               onClick={() => setCurrentBudget(budget)}
             >
               <div
-                className={`p-3 mb-auto rounded-full ${
+                className={`w-12 h-12 p-3 mb-auto rounded-full ${
                   currentBudget?.id == budget.id ? "" : "bg-primary/5"
                 }`}
               >
-                {TRANSACTION_CATEGORIES[budget?.category].icon}
+                <DynamicIcon
+                  name={TRANSACTION_CATEGORIES[budget?.category].icon}
+                />
               </div>
               <div className="flex-1 flex justify-between items-center">
                 <div className="flex flex-col">

@@ -10,6 +10,7 @@ import {
 import { getFormattedCurrency } from "@/lib/currency";
 import { titleCase } from "@/lib/data";
 import { Button } from "@/components/ui/button";
+import { DynamicIcon } from "lucide-react/dynamic";
 
 interface Props {
   className?: string;
@@ -41,8 +42,11 @@ export default function CurrentGoal({ className, currentGoal }: Props) {
                 )} */}
                 </div>
                 <div className="flex gap-2">
-                  <div className="mb-auto p-4 rounded-full bg-primary/10">
-                    {TRANSACTION_CATEGORIES[currentGoal?.category].icon}
+                  <div className="w-12 h-12 p-3 mb-auto rounded-full bg-primary/10">
+                    <DynamicIcon
+                      name={TRANSACTION_CATEGORIES[currentGoal?.category].icon}
+                      size={24}
+                    />
                   </div>
                   <div className="flex-1 flex justify-between">
                     <div className="flex flex-col">
@@ -75,8 +79,8 @@ export default function CurrentGoal({ className, currentGoal }: Props) {
                     },
                   ].map((info, idx) => (
                     <div className="flex flex-col gap-2 items-center" key={idx}>
-                      <div className="p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
-                        {info.icon}
+                      <div className="w-12 h-12 p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
+                        <DynamicIcon name={info.icon} />
                       </div>
                       <p className="text-sm">{titleCase(info.label)}</p>
                     </div>
@@ -93,8 +97,11 @@ export default function CurrentGoal({ className, currentGoal }: Props) {
                 )} */}
                   {currentGoal?.necessity && (
                     <div className="flex flex-col gap-2 items-center">
-                      <div className="p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
-                        {EXPENSES_NECESSITY[currentGoal?.necessity].icon}
+                      <div className="w-12 h-12 p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
+                        <DynamicIcon
+                          name={EXPENSES_NECESSITY[currentGoal?.necessity].icon}
+                          // size={24}
+                        />
                       </div>
                       <p className="text-wrap text-sm">
                         {titleCase(currentGoal?.necessity)}

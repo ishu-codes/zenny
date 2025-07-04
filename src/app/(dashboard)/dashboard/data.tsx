@@ -1,10 +1,8 @@
-import { Sparkles, Star, StarOff } from "lucide-react";
-
 export const EVENT_IMPORTANCE = {
-  HIGH: { color: "red-500", icon: <Sparkles /> },
-  MEDIUM: { color: "yellow-500", icon: <Star /> },
-  LOW: { color: "blue-500", icon: <StarOff /> },
-};
+  HIGH: { color: "red-500", icon: "sparkles" },
+  MEDIUM: { color: "yellow-500", icon: "star" },
+  LOW: { color: "blue-500", icon: "star-off" },
+} as const;
 export type EventInterface = {
   id: number;
   title: string;

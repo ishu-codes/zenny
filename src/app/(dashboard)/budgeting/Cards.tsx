@@ -16,6 +16,7 @@ import { CircleProgress } from "@/components/ui/circle-progress";
 import Link from "next/link";
 import ProgressBar2 from "@/components/charts/ProgressBar2";
 import { getFormattedCurrency } from "@/lib/currency";
+import { DynamicIcon } from "lucide-react/dynamic";
 
 export const MONTHLY_EXPENSES = {
   labels: ["Dec", "Jan", "Feb", "Mar", "Apr"],
@@ -125,9 +126,12 @@ export default function Cards() {
               <div
                 className={`flex gap-4 items-center rounded-lg cursor-pointer`}
               >
-                <div className="p-3 rounded-full bg-primary/10">
-                  {currentBill &&
-                    TRANSACTION_CATEGORIES[currentBill?.category]?.icon}
+                <div className="w-12 h-12 p-3 rounded-full bg-primary/10">
+                  {currentBill && (
+                    <DynamicIcon
+                      name={TRANSACTION_CATEGORIES[currentBill?.category]?.icon}
+                    />
+                  )}
                 </div>
                 <div className="w-full flex justify-between items-center">
                   <div className="">
@@ -168,8 +172,10 @@ export default function Cards() {
                 className={`flex gap-4 items-center rounded-lg cursor-pointer`}
                 onClick={() => handleBillClick(bill)}
               >
-                <div className="p-3 rounded-full bg-primary/10">
-                  {TRANSACTION_CATEGORIES[bill?.category].icon}
+                <div className="w-12 h-12 p-3 rounded-full bg-primary/10">
+                  <DynamicIcon
+                    name={TRANSACTION_CATEGORIES[bill?.category].icon}
+                  />
                 </div>
                 <div className="w-full flex justify-between items-center">
                   <div className="">

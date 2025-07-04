@@ -2,18 +2,16 @@
 
 import { useState } from "react";
 import Link from "next/link";
-// import {VisuallyHidden} from
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { DynamicIcon } from "lucide-react/dynamic";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  // CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-// import { Separator } from "@/components/ui/separator";
 import { CARDS } from "./data";
 import {
   AUTOPAY_TYPES,
@@ -38,6 +36,8 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { titleCase } from "@/lib/data";
+import Image from "next/image";
+import { getFormattedRelativeDateTime } from "@/lib/date";
 
 export function CardTab() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -197,12 +197,29 @@ export function CardTab() {
                 )}
               </div>
               <div className="flex gap-2">
-                <div className="p-4 rounded-full bg-primary/10">
-                  {
-                    TRANSACTION_CATEGORIES[
-                      selectedTransaction?.category || "OTHER"
-                    ].icon
-                  }
+                <div className="w-12 h-12">
+                  {selectedTransaction?.img !== "" &&
+                  process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ? (
+                    <Image
+                      className="w-full h-full rounded-md"
+                      src={`https://img.logo.dev/${selectedTransaction?.img}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}&format=png`}
+                      alt={selectedTransaction?.img || "logo"}
+                      width={128}
+                      height={128}
+                    />
+                  ) : (
+                    <div className="w-12 h-12 p-3 flex justify-center items-center bg-primary/10 rounded-full">
+                      {selectedTransaction && (
+                        <DynamicIcon
+                          name={
+                            TRANSACTION_CATEGORIES[
+                              selectedTransaction?.category
+                            ].icon
+                          }
+                        />
+                      )}
+                    </div>
+                  )}
                 </div>
                 <div className="flex-1 flex justify-between">
                   <div className="flex flex-col">
@@ -250,16 +267,18 @@ export function CardTab() {
                   },
                 ].map((info, idx) => (
                   <div className="flex flex-col gap-2 items-center" key={idx}>
-                    <div className="p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
-                      {info.icon}
+                    <div className="w-12 h-12 p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
+                      <DynamicIcon name={info.icon} />
                     </div>
                     <p>{titleCase(info?.label || "OTHER")}</p>
                   </div>
                 ))}
                 {selectedTransaction?.autopay && (
                   <div className="flex flex-col gap-2 items-center">
-                    <div className="p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
-                      {AUTOPAY_TYPES[selectedTransaction?.autopay].icon}
+                    <div className="w-12 h-12 p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
+                      <DynamicIcon
+                        name={AUTOPAY_TYPES[selectedTransaction?.autopay].icon}
+                      />
                     </div>
                     <p className="text-wrap">
                       {titleCase(selectedTransaction?.autopay)}
@@ -268,8 +287,13 @@ export function CardTab() {
                 )}
                 {selectedTransaction?.necessity && (
                   <div className="flex flex-col gap-2 items-center">
-                    <div className="p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
-                      {EXPENSES_NECESSITY[selectedTransaction?.necessity].icon}
+                    <div className="w-12 h-12 p-3 bg-primary/5 dark:bg-primary/10 rounded-full">
+                      <DynamicIcon
+                        name={
+                          EXPENSES_NECESSITY[selectedTransaction?.necessity]
+                            .icon
+                        }
+                      />
                     </div>
                     <p className="text-wrap">
                       {titleCase(selectedTransaction?.necessity)}
@@ -299,13 +323,16 @@ export function CardTab() {
             >
               <div className="flex gap-2 items-center">
                 <div className="text-secondary-foreground p-3 bg-accent rounded-full">
-                  {TRANSACTION_CATEGORIES[transaction.category].icon}
+                  <DynamicIcon
+                    name={TRANSACTION_CATEGORIES[transaction.category].icon}
+                    size={24}
+                  />
                 </div>
                 <div className="">
                   <p className="font-medium">{transaction.title}</p>
                   <p className="text-xs text-muted-foreground">
                     {/* {getFormattedDateTime(transaction.date)} */}
-                    {transaction.dateTime.toLocaleString()}
+                    {getFormattedRelativeDateTime(transaction.dateTime)}
                   </p>
                 </div>
               </div>

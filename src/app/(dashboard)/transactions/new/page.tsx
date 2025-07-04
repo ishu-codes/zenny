@@ -30,6 +30,7 @@ import {
   type TransactionInterface,
 } from "../../dashboard/chartsData";
 import { titleCase } from "@/lib/data";
+import { DynamicIcon } from "lucide-react/dynamic";
 
 const formSchema = z.object({
   title: z.string().min(2, "Title must be at least 2 characters"),
@@ -158,8 +159,8 @@ export default function NewTransaction() {
                                 htmlFor={`type-${key}`}
                                 className="flex flex-col items-center cursor-pointer text-muted-foreground peer-aria-checked:text-primary [&>svg]:peer-aria-checked:text-primary"
                               >
-                                <div className="p-2 border-2 rounded-full peer-aria-checked:border-primary">
-                                  {value.icon}
+                                <div className="w-10 h-10 flex items-center justify-center border-2 rounded-full peer-aria-checked:border-primary">
+                                  <DynamicIcon name={value.icon} size={20} />
                                 </div>
                                 <span className="text-sm">
                                   {titleCase(key)}
@@ -207,8 +208,8 @@ export default function NewTransaction() {
                                 htmlFor={`category-${key}`}
                                 className="flex flex-col items-center cursor-pointer text-muted-foreground peer-aria-checked:text-primary [&>svg]:peer-aria-checked:text-primary"
                               >
-                                <div className="p-2 border-2 rounded-full peer-aria-checked:border-primary">
-                                  {value.icon}
+                                <div className="w-10 h-10 flex items-center justify-center border-2 rounded-full peer-aria-checked:border-primary">
+                                  <DynamicIcon name={value.icon} size={20} />
                                 </div>
                                 <span className="text-sm">
                                   {titleCase(key)}
@@ -253,8 +254,8 @@ export default function NewTransaction() {
                                 htmlFor={`necessity-${key}`}
                                 className="flex flex-col items-center cursor-pointer text-muted-foreground peer-aria-checked:text-primary [&>svg]:peer-aria-checked:text-primary"
                               >
-                                <div className="p-2 border-2 rounded-full peer-aria-checked:border-primary">
-                                  {value.icon}
+                                <div className="w-10 h-10 flex items-center justify-center border-2 rounded-full peer-aria-checked:border-primary">
+                                  <DynamicIcon name={value.icon} size={20} />
                                 </div>
                                 <span className="text-sm">
                                   {titleCase(key)}
@@ -298,13 +299,13 @@ export default function NewTransaction() {
                                 }`}
                               >
                                 <div
-                                  className={`p-2 border-2 rounded-full ${
+                                  className={`w-10 h-10 flex items-center justify-center border-2 rounded-full ${
                                     field.value === key
                                       ? "border-primary"
                                       : "border-input"
                                   }`}
                                 >
-                                  {value.icon}
+                                  <DynamicIcon name={value.icon} size={20} />
                                 </div>
                                 <span className="text-sm">
                                   {titleCase(key)}
