@@ -29,7 +29,7 @@ export const getFormattedRelativeDateTime = (dateData: string | Date) => {
   return `${weekday}, ${day} ${month}`;
 };
 
-export const getFormattedDateTime = (dateData: string) => {
+export const getFormattedDateTime = (dateData: string | Date) => {
   const selectedDate = new Date(dateData);
   const year = new Intl.DateTimeFormat("en", {
     year: "numeric",

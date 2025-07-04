@@ -93,6 +93,7 @@ export type TransactionInterface = {
   id: number;
   title: string;
   desc?: string;
+  img: string;
   category: keyof typeof TRANSACTION_CATEGORIES;
   necessity?: keyof typeof EXPENSES_NECESSITY;
   amount: number;
@@ -106,6 +107,7 @@ export const TRANSACTIONS: TransactionInterface[] = [
     id: 1,
     title: "YouTube Premium",
     desc: "YouTube premium subscription for ads-free video & music streaming.",
+    img: "youtube.com",
     category: "ENTERTAINMENT",
     necessity: "DESIRABLE",
     amount: 89,
@@ -117,6 +119,7 @@ export const TRANSACTIONS: TransactionInterface[] = [
     id: 5,
     title: "Gift",
     desc: "Gift from someone",
+    img: "",
     category: "GIFT",
     amount: 501,
     dateTime: new Date("2025-02-01 10:45"),
@@ -126,6 +129,7 @@ export const TRANSACTIONS: TransactionInterface[] = [
     id: 2,
     title: "Pizza",
     desc: "Pizaa at Domino's Pizza",
+    img: "dominos.com",
     category: "FOOD",
     necessity: "TRIVIAL",
     amount: 350,
@@ -136,6 +140,7 @@ export const TRANSACTIONS: TransactionInterface[] = [
     id: 3,
     title: "Chicken at KFC",
     desc: "Fried Chicken at KFC",
+    img: "kfc.com",
     category: "FOOD",
     necessity: "DESIRABLE",
     amount: 460,
@@ -146,6 +151,7 @@ export const TRANSACTIONS: TransactionInterface[] = [
     id: 4,
     title: "Cab for KFC",
     desc: "To & fro from KFC",
+    img: "uber.com",
     category: "TRAVEL",
     necessity: "ESSENTIAL",
     amount: 100,
@@ -156,6 +162,7 @@ export const TRANSACTIONS: TransactionInterface[] = [
     id: 6,
     title: "Burger King",
     desc: "Burger from Burger King",
+    img: "bk.com",
     category: "FOOD",
     necessity: "TRIVIAL",
     amount: 120,

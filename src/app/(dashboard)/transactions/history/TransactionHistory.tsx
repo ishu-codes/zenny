@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { getFormattedDateTime, getFormattedRelativeDateTime } from "@/lib/date";
 import { titleCase } from "@/lib/data";
@@ -23,7 +24,7 @@ export default function TransactionHistory() {
   );
 
   return (
-    <Card className="flex flex-row px-8">
+    <Card className="flex flex-row px-6">
       <div className="w-1/2">
         {transactions.map((transaction, idx) => (
           <div
@@ -85,8 +86,20 @@ export default function TransactionHistory() {
           )}
         </div>
         <div className="flex gap-2">
-          <div className="p-4 rounded-full bg-primary/10">
-            {TRANSACTION_CATEGORIES[currentTransaction?.category].icon}
+          <div className="w-12 h-12">
+            {currentTransaction.img !== "" ? (
+              <Image
+                className="w-full h-full rounded-md"
+                src={`https://img.logo.dev/${currentTransaction.img}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}&format=png`}
+                alt={currentTransaction.img}
+                width={128}
+                height={128}
+              />
+            ) : (
+              <div className="w-full h-full flex justify-center items-center bg-primary/10 rounded-full">
+                {TRANSACTION_CATEGORIES[currentTransaction?.category].icon}
+              </div>
+            )}
           </div>
           <div className="flex-1 flex justify-between">
             <div className="flex flex-col">

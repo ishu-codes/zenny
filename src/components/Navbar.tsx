@@ -67,7 +67,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const navLink = NAVLINKS.find((nav) => nav.url === pathname);
+    const navLink = NAVLINKS.find((nav) => pathname.includes(nav.url));
     if (navLink) setCurrentNavName(navLink.title);
   }, [pathname]);
 
