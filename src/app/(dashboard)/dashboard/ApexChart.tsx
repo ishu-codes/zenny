@@ -14,6 +14,7 @@ interface ApexChartProps {
     | "bar"
     | "pie"
     | "donut"
+    | "half-donut"
     | "radialBar"
     | "scatter"
     | "bubble"
@@ -51,7 +52,7 @@ const ApexChart: React.FC<ApexChartProps> = ({
 }) => {
   const { theme } = useTheme();
 
-  if (["pie", "donut"].includes(type))
+  if (["pie", "donut", "half-donut"].includes(type))
     return (
       <Chart
         options={{
@@ -67,35 +68,40 @@ const ApexChart: React.FC<ApexChartProps> = ({
           },
           plotOptions: {
             pie: {
+              startAngle: type === "half-donut" ? -90 : 0,
+              endAngle: type === "half-donut" ? 90 : 360,
               donut: {
                 size: "50%",
                 labels: {
-                  show: true,
+                  show: false,
                   name: {
                     show: false,
                     fontWeight: 700,
                   },
-                  total: {
-                    show: true,
-                    showAlways: true,
-                    formatter: function (w) {
-                      return (
-                        "₹ " +
-                        getFormattedCurrency(
-                          w.globals.seriesTotals.reduce((a, b) => {
-                            return a + b;
-                          }, 0)
-                        )
-                      );
-                    },
-                  },
+                  // total: {
+                  //   show: true,
+                  //   showAlways: true,
+                  //   formatter: function (w) {
+                  //     return (
+                  //       "₹ " +
+                  //       getFormattedCurrency(
+                  //         w.globals.seriesTotals.reduce((a, b) => {
+                  //           return a + b;
+                  //         }, 0)
+                  //       )
+                  //     );
+                  //   },
+                  // },
                 },
+              },
+              dataLabels: {
+                minAngleToShowLabel: 360,
               },
             },
           },
         }}
         series={values}
-        type={type}
+        type={type === "half-donut" ? "donut" : type}
         width={width ?? "auto"}
         height={height ?? "auto"}
       />

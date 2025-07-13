@@ -29,8 +29,12 @@ export const MONTHLY_EXPENSES = {
   ],
 };
 export const EXPENSES_BY_CATEGORIES = {
-  labels: ["Food", "Travel", "Hygiene", "Others"],
-  values: [51200, 36600, 28030, 20100],
+  labels: ["Food", "Travel", "Hygiene", "Entertainment", "Others"],
+  values: [51200, 36600, 28030, 25400, 20100],
+};
+export const EXPENSES_BY_NECESSITY = {
+  labels: ["Essential", "Desirable", "Trivial"],
+  values: [51200, 36600, 28030],
 };
 
 export const TRANSACTION_CATEGORIES = {
@@ -54,6 +58,7 @@ export const EXPENSES_NECESSITY = {
 export const TRANSACTION_TYPES = {
   DEBIT: { icon: "banknote-arrow-down" },
   CREDIT: { icon: "banknote-arrow-up" },
+  LENDING: { icon: "helping-hand" },
 } as const;
 
 export const AUTOPAY_TYPES = {

@@ -1,28 +1,22 @@
 import { Metadata } from "next";
-import { TrendingDown, TrendingUp } from "lucide-react";
 import ProgressBar from "@/components/charts/ProgressBar";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CardTab } from "./CardTab";
 import { CalendarTab } from "./CalendarTab";
 
 import ApexChart from "./ApexChart";
 import {
-  SHORT_INFO,
-  MONTHLY_EXPENSES,
-  EXPENSES_BY_CATEGORIES,
+  // MONTHLY_EXPENSES,
+  // EXPENSES_BY_CATEGORIES,
   GOALS,
   SMART_TIPS,
 } from "./chartsData";
 import SmartTips from "./SmartTips";
-import { getFormattedCurrency } from "@/lib/currency";
+import SummaryData from "./SummaryData";
+import { use } from "react";
+import { queryClient } from "@/lib/react-query";
+import { expensesByCategory, expensesRevenueTrend } from "@/hooks/db";
 
 export const metadata: Metadata = {
   title: "Dashboard | Zenny",
@@ -30,36 +24,26 @@ export const metadata: Metadata = {
 };
 
 export default function DashboardPage() {
+  const expensesByCategoryData = use(
+    queryClient.fetchQuery({
+      queryKey: ["get_expenses_by_category", "month"],
+      queryFn: () => expensesByCategory("month"),
+      staleTime: 1000 * 60 * 60, // 1hr
+    })
+  );
+
+  const expensesRevenueTrendData = use(
+    queryClient.fetchQuery({
+      queryKey: ["get_expense_revenue_trend", "month"],
+      queryFn: () => expensesRevenueTrend("month", 6),
+      staleTime: 1000 * 60 * 60, // 1hr
+    })
+  );
+
   return (
     <div className="flex flex-col gap-6 pb-4">
-      {/* Short Info */}
-      <div className="grid gap-6 grid-cols-1 xs:grid-cols-2 lg:grid-cols-4">
-        {SHORT_INFO.map((info) => (
-          <Card key={info.title}>
-            <CardHeader>
-              <CardDescription>{info.title}</CardDescription>
-              <CardTitle className="text-2xl">
-                &#8377; {getFormattedCurrency(info.currentPeriod)}
-              </CardTitle>
-            </CardHeader>
-            {/* <Separator orientation="horizontal" className="px-4" /> */}
-            {info?.lastPeriod && info?.lastPeriod != 0 && (
-              <CardFooter className="flex justify-between flex-wrap items-start text-sm">
-                <CardDescription>
-                  <PercentageChange
-                    initial={info?.lastPeriod}
-                    final={info?.currentPeriod}
-                  />
-                </CardDescription>
-                <CardDescription>
-                  Last month:&nbsp;&nbsp;&#8377;{" "}
-                  {getFormattedCurrency(info?.lastPeriod)}
-                </CardDescription>
-              </CardFooter>
-            )}
-          </Card>
-        ))}
-      </div>
+      <SummaryData />
+
       <div className="h-full grid gap-6 grid-cols-1 xs:grid-cols-2 lg:grid-cols-3">
         {/* Monthly Expenses */}
         <Card className="min-h-80">
@@ -68,8 +52,8 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="transition-all duration-300 ease-in-out">
             <ApexChart
-              labels={MONTHLY_EXPENSES.labels}
-              values={MONTHLY_EXPENSES.values}
+              labels={expensesRevenueTrendData.labels}
+              values={expensesRevenueTrendData.values}
               type="line"
               width={"100%"}
             />
@@ -83,8 +67,8 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="transition-all duration-300 ease-in-out">
             <ApexChart
-              labels={EXPENSES_BY_CATEGORIES.labels}
-              values={EXPENSES_BY_CATEGORIES.values}
+              labels={expensesByCategoryData.labels}
+              values={expensesByCategoryData.values}
               type="donut"
               width={"100%"}
             />
@@ -135,24 +119,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-const PercentageChange = ({
-  initial,
-  final,
-}: {
-  initial: number;
-  final: number;
-}) => {
-  const percentageChange = (final / initial - 1) * 100;
-  return percentageChange > 0 ? (
-    <div className="flex gap-1 text-sm text-emerald-600 dark:text-emerald-400">
-      <TrendingUp size={20} />
-      <span className="font-medium">{percentageChange.toFixed(1)}&#37;</span>
-    </div>
-  ) : (
-    <div className="flex gap-1 text-sm text-red-600 dark:text-red-400">
-      <TrendingDown size={20} />
-      <span className="font-medium">{percentageChange.toFixed(1)}&#37;</span>
-    </div>
-  );
-};

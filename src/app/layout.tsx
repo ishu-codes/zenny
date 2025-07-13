@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { inter, roboto } from "./fonts";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "Zenny | Manage your Finances Efficiently",
@@ -26,7 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Providers>{children}</Providers>
         </ThemeProvider>
       </body>
     </html>
