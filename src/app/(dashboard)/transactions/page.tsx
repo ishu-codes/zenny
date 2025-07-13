@@ -1,16 +1,19 @@
 import { Metadata } from "next";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import {
-  // MONTHLY_EXPENSES,
-  // EXPENSES_BY_CATEGORIES,
-  EXPENSES_BY_NECESSITY,
-} from "@/app/(dashboard)/dashboard/chartsData";
+import // MONTHLY_EXPENSES,
+// EXPENSES_BY_CATEGORIES,
+// EXPENSES_BY_NECESSITY,
+"@/app/(dashboard)/dashboard/chartsData";
 import ApexChart from "@/app/(dashboard)/dashboard/ApexChart";
 import SummaryData from "../dashboard/SummaryData";
 import { use } from "react";
 import { queryClient } from "@/lib/react-query";
-import { expensesByCategory, expensesRevenueTrend } from "@/hooks/db";
+import {
+  expensesByCategory,
+  expensesByNecessity,
+  expensesRevenueTrend,
+} from "@/hooks/db";
 
 export const metadata: Metadata = {
   title: "Transactions | Zenny",
@@ -18,13 +21,6 @@ export const metadata: Metadata = {
 };
 
 export default function TransactionsPage() {
-  const expensesByCategoryData = use(
-    queryClient.fetchQuery({
-      queryKey: ["get_expenses_by_category", "month"],
-      queryFn: () => expensesByCategory("month"),
-      staleTime: 1000 * 60 * 60, // 1hr
-    })
-  );
   const expensesRevenueTrendData = use(
     queryClient.fetchQuery({
       queryKey: ["get_expense_revenue_trend", "month"],
@@ -32,6 +28,21 @@ export default function TransactionsPage() {
       staleTime: 1000 * 60 * 60, // 1hr
     })
   );
+  const expensesByCategoryData = use(
+    queryClient.fetchQuery({
+      queryKey: ["get_expenses_by_category", "month"],
+      queryFn: () => expensesByCategory("month"),
+      staleTime: 1000 * 60 * 60, // 1hr
+    })
+  );
+  const expensesByNecessityData = use(
+    queryClient.fetchQuery({
+      queryKey: ["get_expenses_by_necessity", "month"],
+      queryFn: () => expensesByNecessity("month"),
+      staleTime: 1000 * 60 * 60, // 1hr
+    })
+  );
+
   return (
     <div className="flex flex-col gap-4">
       <SummaryData />
@@ -68,8 +79,8 @@ export default function TransactionsPage() {
           </CardHeader>
           <CardContent className="transition-all duration-300 ease-in-out">
             <ApexChart
-              labels={EXPENSES_BY_NECESSITY.labels}
-              values={EXPENSES_BY_NECESSITY.values}
+              labels={expensesByNecessityData.labels}
+              values={expensesByNecessityData.values}
               type="donut"
               width={"100%"}
             />

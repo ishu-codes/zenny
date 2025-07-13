@@ -89,3 +89,25 @@ export const expensesByCategory = async (
     values: data.map((d: ExpenseCategory) => Number(d.value)),
   };
 };
+
+type ExpenseByNecessity = {
+  label: string;
+  value: number;
+};
+export const expensesByNecessity = async (
+  period?: "year" | "month" | "week",
+  offset?: number
+) => {
+  const { data, error } = await supabase.rpc("get_expenses_by_necessity", {
+    period: period ?? "month",
+    period_offset: offset ?? 0,
+  });
+
+  if (error) throw error;
+  console.log(data);
+
+  return {
+    labels: data.map((d: ExpenseByNecessity) => d.label),
+    values: data.map((d: ExpenseByNecessity) => Number(d.value)),
+  };
+};
