@@ -16,7 +16,7 @@ import SmartTips from "./SmartTips";
 import SummaryData from "./SummaryData";
 import { use } from "react";
 import { queryClient } from "@/lib/react-query";
-import { expensesByCategory, expensesRevenueTrend } from "@/hooks/db";
+import { expensesByCategory, expensesRevenueTrend } from "@/lib/dbData";
 
 export const metadata: Metadata = {
   title: "Dashboard | Zenny",

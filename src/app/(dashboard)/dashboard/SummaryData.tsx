@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardFooter,
 } from "@/components/ui/card";
-import { summaryQueryFn } from "@/hooks/db";
+import { summaryQueryFn } from "@/lib/dbData";
 import { getFormattedCurrency } from "@/lib/currency";
 import { queryClient } from "@/lib/react-query";
 

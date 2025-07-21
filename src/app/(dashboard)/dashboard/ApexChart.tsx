@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { useTheme } from "next-themes";
-import { getFormattedCurrency } from "@/lib/currency";
+// import { getFormattedCurrency } from "@/lib/currency";
 
 interface ApexChartProps {
   labels: string[];

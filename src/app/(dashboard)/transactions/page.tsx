@@ -13,7 +13,7 @@ import {
   expensesByCategory,
   expensesByNecessity,
   expensesRevenueTrend,
-} from "@/hooks/db";
+} from "@/lib/dbData";
 
 export const metadata: Metadata = {
   title: "Transactions | Zenny",

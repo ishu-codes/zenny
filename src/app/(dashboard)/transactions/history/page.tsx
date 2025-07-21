@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-import { CardInterface, CARDS } from "../../dashboard/data";
 import {
   Select,
   SelectContent,
@@ -10,12 +9,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { CardInterface, CARDS } from "../../dashboard/data";
+import { TRANSACTIONS } from "../../dashboard/chartsData";
 
 import TransactionHistory from "./TransactionHistory";
+import { useCards, useTransactions } from "@/hooks/db";
 
 export default function History() {
   const [cards, setCards] = useState<CardInterface[]>([]);
+  const { data: cardsData, isLoading: isCardLoading } = useCards();
   const [currentCardNum, setCurrentCardNum] = useState<string>("all");
+
+  const { data: transactionsData, isLoading: isTransactionsLoading } =
+    useTransactions();
 
   useEffect(() => {
     setCards([
@@ -25,9 +31,9 @@ export default function History() {
         number: "all",
         theme: "",
       },
-      ...CARDS,
+      ...(cardsData ?? CARDS),
     ]);
-  }, []);
+  }, [cardsData]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -50,7 +56,7 @@ export default function History() {
       </div>
       <div className="flex-1 flex flex-col gap-4">
         <div className="flex flex-col">
-          <TransactionHistory />
+          <TransactionHistory transactions={transactionsData ?? TRANSACTIONS} />
         </div>
       </div>
     </div>
