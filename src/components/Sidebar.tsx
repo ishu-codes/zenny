@@ -12,7 +12,7 @@ import { NAVLINKS } from "./data";
 
 const sidebarVariants = {
   open: {
-    width: "240px",
+    width: "200px",
     transition: {
       duration: 0.3,
       ease: [0.42, 0, 0.58, 1], // equivalent to 'easeInOut'
@@ -37,9 +37,9 @@ export default function Sidebar() {
     <motion.div
       variants={sidebarVariants}
       animate={isSidebarOpen ? "open" : "closed"}
-      className="w-[64px] md:h-screen fixed bottom-0 md:sticky md:top-0 flex md:flex-col justify-between px-4 md:px-1 py-2 md:pt-0 md:pb-4 bg-primary overflow-hidden border-r z-40"
+      className="w-[64px] md:h-screen fixed bottom-0 md:sticky md:top-0 flex md:flex-col justify-between px-4 md:px-2 py-2 md:pt-0 md:pb-4 bg-primary overflow-hidden border-r z-40"
     >
-      <div className="w-fit! md:w-auto flex md:flex-col md:gap-8 overflow-auto">
+      <div className="max-w-full min-w-fit! md:w-auto flex md:flex-col md:gap-8 overflow-auto">
         <Link
           className="hidden md:flex justify-center py-4 border-b border-white/10"
           href={"/"}
@@ -68,7 +68,7 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      <div className="w-fit! hidden md:flex flex-col gap-2">
+      <div className="max-w-full min-w-fit! hidden md:flex flex-col gap-2">
         <Button
           variant={"ghost"}
           className="flex justify-start gap-3 px-3 py-2 text-sm text-white/70 hover:bg-white/10 hover:text-white/70 rounded-md"
@@ -84,13 +84,17 @@ export default function Sidebar() {
             <PanelLeftOpen />
           )}
         </Button>
-        <Button variant={"ghost"} asChild className="hover:text-white/70">
+        <Button
+          variant={"ghost"}
+          asChild
+          className={`flex justify-start hover:text-white/70`}
+        >
           <Link
             className="flex gap-3 px-3 py-2 text-sm text-white/70 hover:bg-white/10 rounded-md"
             href="/logout"
             title="Log out"
           >
-            <LogOut className="scale-80" />
+            <LogOut />
             {isSidebarOpen && "Log out"}
           </Link>
         </Button>

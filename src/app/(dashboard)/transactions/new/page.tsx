@@ -23,8 +23,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
-  TRANSACTION_CATEGORIES,
-  EXPENSES_NECESSITY,
+  CATEGORIES,
+  NECESSITY,
   TRANSACTION_TYPES,
   AUTOPAY_TYPES,
   type TransactionInterface,
@@ -35,12 +35,8 @@ import { DynamicIcon } from "lucide-react/dynamic";
 const formSchema = z.object({
   title: z.string().min(2, "Title must be at least 2 characters"),
   desc: z.string().optional(),
-  category: z.enum(
-    Object.keys(TRANSACTION_CATEGORIES) as [string, ...string[]]
-  ),
-  necessity: z
-    .enum(Object.keys(EXPENSES_NECESSITY) as [string, ...string[]])
-    .optional(),
+  category: z.enum(Object.keys(CATEGORIES) as [string, ...string[]]),
+  necessity: z.enum(Object.keys(NECESSITY) as [string, ...string[]]).optional(),
   amount: z.number().min(1, "Amount must be positive"),
   type: z.enum(Object.keys(TRANSACTION_TYPES) as [string, ...string[]]),
   autopay: z
@@ -65,7 +61,7 @@ export default function NewTransaction() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     const transaction: Partial<TransactionInterface> = {
       ...values,
-      dateTime: new Date(),
+      datetime: new Date().toString(),
       id: Date.now(),
     };
     console.log(transaction);
@@ -191,33 +187,29 @@ export default function NewTransaction() {
                         // className="grid grid-cols-4 gap-4"
                         className="w-full flex gap-8 flex-wrap"
                       >
-                        {Object.entries(TRANSACTION_CATEGORIES).map(
-                          ([key, value]) => (
-                            <FormItem
-                              key={key}
-                              className="flex flex-col items-center space-x-0 space-y-2"
+                        {Object.entries(CATEGORIES).map(([key, value]) => (
+                          <FormItem
+                            key={key}
+                            className="flex flex-col items-center space-x-0 space-y-2"
+                          >
+                            <FormControl>
+                              <RadioGroupItem
+                                value={key}
+                                className="sr-only peer"
+                                id={`category-${key}`}
+                              />
+                            </FormControl>
+                            <FormLabel
+                              htmlFor={`category-${key}`}
+                              className="flex flex-col items-center cursor-pointer text-muted-foreground peer-aria-checked:text-primary [&>svg]:peer-aria-checked:text-primary"
                             >
-                              <FormControl>
-                                <RadioGroupItem
-                                  value={key}
-                                  className="sr-only peer"
-                                  id={`category-${key}`}
-                                />
-                              </FormControl>
-                              <FormLabel
-                                htmlFor={`category-${key}`}
-                                className="flex flex-col items-center cursor-pointer text-muted-foreground peer-aria-checked:text-primary [&>svg]:peer-aria-checked:text-primary"
-                              >
-                                <div className="w-10 h-10 flex items-center justify-center border-2 rounded-full peer-aria-checked:border-primary">
-                                  <DynamicIcon name={value.icon} size={20} />
-                                </div>
-                                <span className="text-sm">
-                                  {titleCase(key)}
-                                </span>
-                              </FormLabel>
-                            </FormItem>
-                          )
-                        )}
+                              <div className="w-10 h-10 flex items-center justify-center border-2 rounded-full peer-aria-checked:border-primary">
+                                <DynamicIcon name={value.icon} size={20} />
+                              </div>
+                              <span className="text-sm">{titleCase(key)}</span>
+                            </FormLabel>
+                          </FormItem>
+                        ))}
                       </RadioGroup>
                     </FormControl>
                     <FormMessage />
@@ -237,33 +229,29 @@ export default function NewTransaction() {
                         defaultValue={field.value}
                         className="flex gap-4"
                       >
-                        {Object.entries(EXPENSES_NECESSITY).map(
-                          ([key, value]) => (
-                            <FormItem
-                              key={key}
-                              className="flex flex-col items-center space-x-0 space-y-2"
+                        {Object.entries(NECESSITY).map(([key, value]) => (
+                          <FormItem
+                            key={key}
+                            className="flex flex-col items-center space-x-0 space-y-2"
+                          >
+                            <FormControl>
+                              <RadioGroupItem
+                                value={key}
+                                className="sr-only peer"
+                                id={`necessity-${key}`}
+                              />
+                            </FormControl>
+                            <FormLabel
+                              htmlFor={`necessity-${key}`}
+                              className="flex flex-col items-center cursor-pointer text-muted-foreground peer-aria-checked:text-primary [&>svg]:peer-aria-checked:text-primary"
                             >
-                              <FormControl>
-                                <RadioGroupItem
-                                  value={key}
-                                  className="sr-only peer"
-                                  id={`necessity-${key}`}
-                                />
-                              </FormControl>
-                              <FormLabel
-                                htmlFor={`necessity-${key}`}
-                                className="flex flex-col items-center cursor-pointer text-muted-foreground peer-aria-checked:text-primary [&>svg]:peer-aria-checked:text-primary"
-                              >
-                                <div className="w-10 h-10 flex items-center justify-center border-2 rounded-full peer-aria-checked:border-primary">
-                                  <DynamicIcon name={value.icon} size={20} />
-                                </div>
-                                <span className="text-sm">
-                                  {titleCase(key)}
-                                </span>
-                              </FormLabel>
-                            </FormItem>
-                          )
-                        )}
+                              <div className="w-10 h-10 flex items-center justify-center border-2 rounded-full peer-aria-checked:border-primary">
+                                <DynamicIcon name={value.icon} size={20} />
+                              </div>
+                              <span className="text-sm">{titleCase(key)}</span>
+                            </FormLabel>
+                          </FormItem>
+                        ))}
                       </RadioGroup>
                     </FormControl>
                     <FormMessage />

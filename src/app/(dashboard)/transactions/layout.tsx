@@ -43,7 +43,7 @@ const NavLinks = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
     >
       {NAVS.map((nav, idx) => (
         <Link
-          className={`pl-4 pr-10 py-2 rounded-md ${
+          className={`pl-4 pr-8 py-2 rounded-md text-sm ${
             pathname == nav.href ? "bg-accent" : "text-foreground/60"
           }`}
           href={nav.href}

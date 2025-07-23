@@ -7,6 +7,7 @@ import { getFormattedCurrency } from "@/lib/currency";
 import { getFormattedTime } from "@/lib/date";
 import { MERCHANTS } from "../../dashboard/chartsData";
 import React from "react";
+import { Badge } from "@/components/ui/badge";
 
 export default function PastTransactions({
   merchant,
@@ -58,36 +59,55 @@ export default function PastTransactions({
         </div>
       </div>
 
-      <div className="flex flex-col gap-2">
-        {/* {Array.from({ length: 6 }, (_, i) => i).map((index) => (
-          <React.Fragment key={index}> */}
+      <div className="flex flex-col gap-6">
         {pastTransactions?.map((month, index) => (
-          <div className="flex flex-col gap-2" key={index}>
-            <div className="flex justify-between px-4 pb-1 border-b">
+          <div className="flex flex-col gap-2 group" key={index}>
+            <div className="flex justify-between px-2 pb-1 border-b">
               <h3 className="text-lg font-medium">{month.month}</h3>
-              <p className="text-lg">
+              <p className="font-medium opacity-0 group-hover:opacity-100">
                 &#8377; {getFormattedCurrency(month.total)}
               </p>
             </div>
-
-            {month.transactions?.map((transaction, idx) => (
-              <div
-                key={idx}
-                className="flex justify-between px-4 py-2 hover:bg-accent rounded-lg"
-              >
-                <div className="flex flex-col">
-                  <h3 className="">{transaction?.title}</h3>
-                  <p className="text-xs text-muted-foreground">
-                    {getFormattedTime(transaction.datetime)}
-                  </p>
+            <div className="flex flex-col">
+              {month.transactions.map((transaction, idx) => (
+                <div
+                  key={idx}
+                  className={`flex gap-4 items-center p-2 rounded-lg cursor-default hover:bg-muted/75}`}
+                >
+                  {/* <div className="w-10 h-10 p-[10px] rounded-full bg-primary/10">
+                    <DynamicIcon size={20} name={transaction?.category?.icon} />
+                  </div> */}
+                  <div className="w-full flex justify-between items-center">
+                    <div className="">
+                      <p className="font-medium">{transaction?.title}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {getFormattedTime(transaction?.datetime)}
+                      </p>
+                    </div>
+                    {transaction?.autopay && (
+                      <Badge
+                        variant={"default"}
+                        className="bg-primary/10 dark:bg-emerald-900 text-foreground"
+                      >
+                        {transaction?.autopay?.type?.name}
+                      </Badge>
+                    )}
+                    <p
+                      className={
+                        transaction.type.name === "DEBIT"
+                          ? ""
+                          : "text-emerald-600 dark:text-emerald-400"
+                      }
+                    >
+                      {"₹"}&nbsp;
+                      {getFormattedCurrency(transaction?.amount)}
+                    </p>
+                  </div>
                 </div>
-                <div>&#8377; {getFormattedCurrency(transaction.amount)}</div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         ))}
-        {/* </React.Fragment>
-        ))} */}
       </div>
     </div>
   );

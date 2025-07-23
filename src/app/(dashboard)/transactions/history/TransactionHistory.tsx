@@ -31,8 +31,8 @@ export default function TransactionHistory({
   }, [isTransactionLoading, transactionsByMonth]);
 
   return (
-    <Card className="flex flex-row">
-      <div className="w-1/2 pl-6">
+    <Card className="flex flex-row py-0 gap-0">
+      <div className="w-1/2 h-[68vh] px-6 py-6 overflow-y-auto">
         {isTransactionLoading ? (
           <div className="flex flex-col gap-2">
             <div className="flex justify-between pb-2 border-b">
@@ -113,7 +113,7 @@ export default function TransactionHistory({
 
       <div className="flex-1 flex relative border-l-2 overflow-x-hidden">
         <div
-          className={`absolute inset-0 w-full flex flex-col gap-4 pl-8 pr-6 py-4 transition-transform duration-300`}
+          className={`absolute inset-0 w-full flex flex-col gap-4 p-6 overflow-y-auto transition-transform duration-300`}
           style={{ transform: `translateX(${0 - currentRightSection * 100}%)` }}
         >
           <CurrentTransaction
@@ -123,7 +123,7 @@ export default function TransactionHistory({
           />
         </div>
         <div
-          className={`absolute inset-0 w-full px-6 transition-transform duration-300`}
+          className={`absolute inset-0 w-full p-6 transition-transform duration-300`}
           style={{
             transform: `translateX(${(1 - currentRightSection) * 100}%)`,
           }}
