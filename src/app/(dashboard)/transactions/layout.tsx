@@ -37,7 +37,7 @@ const NavLinks = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
   const pathname = usePathname();
   return (
     <div
-      className={`flex lg:flex flex-col gap-2 pr-8 border-r fixed lg:relative ${
+      className={`flex lg:flex flex-col gap-2 pr-8 border-r fixed lg:sticky top-26 ${
         sidebarOpen ? "" : "hidden"
       }`}
     >

@@ -2,12 +2,30 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 import { LogOut, PanelLeftOpen, PanelLeftClose } from "lucide-react";
 import Logo from "./Logo";
 import { Button } from "@/components/ui/button";
 import { useSidebarOpen } from "@/store/sidebar";
 import { useShallow } from "zustand/shallow";
 import { NAVLINKS } from "./data";
+
+const sidebarVariants = {
+  open: {
+    width: "240px",
+    transition: {
+      duration: 0.3,
+      ease: [0.42, 0, 0.58, 1], // equivalent to 'easeInOut'
+    },
+  },
+  closed: {
+    width: "64px",
+    transition: {
+      duration: 0.3,
+      ease: [0.42, 0, 0.58, 1],
+    },
+  },
+} satisfies import("framer-motion").Variants;
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -16,12 +34,12 @@ export default function Sidebar() {
   );
 
   return (
-    <div
-      className={`${
-        isSidebarOpen ? "md:w-60" : "md:w-auto"
-      } w-full md:h-screen fixed bottom-0 md:sticky md:top-0 flex md:flex-col justify-between px-4 md:px-1 py-2 md:pt-0 md:pb-4 bg-primary border-r transition-all duration-800 z-40`}
+    <motion.div
+      variants={sidebarVariants}
+      animate={isSidebarOpen ? "open" : "closed"}
+      className="w-[64px] md:h-screen fixed bottom-0 md:sticky md:top-0 flex md:flex-col justify-between px-4 md:px-1 py-2 md:pt-0 md:pb-4 bg-primary overflow-hidden border-r z-40"
     >
-      <div className="w-full md:w-auto flex md:flex-col md:gap-8 overflow-auto">
+      <div className="w-fit! md:w-auto flex md:flex-col md:gap-8 overflow-auto">
         <Link
           className="hidden md:flex justify-center py-4 border-b border-white/10"
           href={"/"}
@@ -50,7 +68,7 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      <div className="hidden md:flex flex-col gap-2">
+      <div className="w-fit! hidden md:flex flex-col gap-2">
         <Button
           variant={"ghost"}
           className="flex justify-start gap-3 px-3 py-2 text-sm text-white/70 hover:bg-white/10 hover:text-white/70 rounded-md"
@@ -66,15 +84,17 @@ export default function Sidebar() {
             <PanelLeftOpen />
           )}
         </Button>
-        <Link
-          className="flex gap-3 px-3 py-2 text-sm text-white/70 hover:bg-white/10 rounded-md"
-          href="/logout"
-          title="Log out"
-        >
-          <LogOut className="scale-80" />
-          {isSidebarOpen && "Log out"}
-        </Link>
+        <Button variant={"ghost"} asChild className="hover:text-white/70">
+          <Link
+            className="flex gap-3 px-3 py-2 text-sm text-white/70 hover:bg-white/10 rounded-md"
+            href="/logout"
+            title="Log out"
+          >
+            <LogOut className="scale-80" />
+            {isSidebarOpen && "Log out"}
+          </Link>
+        </Button>
       </div>
-    </div>
+    </motion.div>
   );
 }

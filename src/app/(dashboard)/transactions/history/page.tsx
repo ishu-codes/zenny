@@ -56,7 +56,10 @@ export default function History() {
       </div>
       <div className="flex-1 flex flex-col gap-4">
         <div className="flex flex-col">
-          <TransactionHistory transactions={transactionsData ?? TRANSACTIONS} />
+          <TransactionHistory
+            transactionsByMonth={transactionsData}
+            isTransactionLoading={isTransactionsLoading}
+          />
         </div>
       </div>
     </div>
