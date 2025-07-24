@@ -14,6 +14,18 @@ export const useCards = () =>
     staleTime: 1000 * 60 * 60,
   });
 
+export const useCategories = () =>
+  useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("categories").select();
+      if (error) throw error;
+      console.log(data);
+      return data;
+    },
+    staleTime: 1000 * 60 * 60,
+  });
+
 export type TransactionByMonth = {
   month: string;
   total: number;
@@ -37,7 +49,11 @@ const getTransactionByMonth = (data: TransactionInterface[]) => {
       const year = format(date, "yyyy");
       const label = isThisYear(date) ? monthName : `${monthName} ${year}`;
 
-      const total = transactions.reduce((sum, t) => sum + t.amount, 0);
+      const total = transactions.reduce(
+        (sum, t) =>
+          t.type.name === "CREDIT" ? sum + t.amount : sum - t.amount,
+        0
+      );
 
       return {
         month: label,
@@ -60,6 +76,7 @@ export const useTransactions = () =>
           category (id, name, icon),
           merchant (id, name, img, is_business),
           necessity (id, name, icon),
+          card (id),
           type (id, name, icon),
           autopay (id, title, type(name, icon)),
           datetime

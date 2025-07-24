@@ -65,7 +65,15 @@ export default function PastTransactions({
             <div className="flex justify-between px-2 pb-1 border-b">
               <h3 className="text-lg font-medium">{month.month}</h3>
               <p className="font-medium opacity-0 group-hover:opacity-100">
-                &#8377; {getFormattedCurrency(month.total)}
+                {month.total > 0 ? (
+                  <span className="text-emerald-600 dark:text-emerald-400">
+                    &#8377; +{getFormattedCurrency(month.total)}
+                  </span>
+                ) : (
+                  <span>
+                    &#8377; {getFormattedCurrency(month.total).replace("-", "")}
+                  </span>
+                )}
               </p>
             </div>
             <div className="flex flex-col">

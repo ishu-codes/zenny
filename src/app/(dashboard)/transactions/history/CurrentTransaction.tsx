@@ -100,9 +100,15 @@ export default function CurrentTransaction({
                   {/* {format(currentTransaction?.datetime, "d LLL y h:m a")} */}
                 </p>
               </div>
-              <p>
+              <p
+                className={
+                  currentTransaction?.type.name === "CREDIT"
+                    ? "text-emerald-600 dark:text-emerald-400"
+                    : ""
+                }
+              >
                 <span className="text-2xl font-light">{"₹"}</span>
-                <span className="text-3xl font-semibold">
+                <span className={`text-3xl font-semibold`}>
                   {" "}
                   {getFormattedCurrency(currentTransaction?.amount, true)}
                 </span>

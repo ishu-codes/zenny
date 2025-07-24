@@ -116,6 +116,7 @@ export const CARDS = [
     created_at: "2025-07-07 10:46:36.942954",
   },
 ];
+export type CardInterface = (typeof CARDS)[number];
 
 export const AUTOPAY_TYPES: { id: number; name: string; icon: IconName }[] = [
   { id: 1, name: "SUBSCRIPTION", icon: "podcast" },
@@ -198,7 +199,8 @@ export const AUTOPAY: {
   },
 ];
 
-export const CATEGORIES: { id: number; name: string; icon: IconName }[] = [
+export type CategoryInterface = { id: number; name: string; icon: IconName };
+export const CATEGORIES: CategoryInterface[] = [
   { id: 1, name: "FOOD", icon: "utensils" },
   { id: 2, name: "TRAVEL", icon: "plane" },
   { id: 3, name: "ENTERTAINMENT", icon: "drama" },
@@ -231,6 +233,7 @@ export type TransactionInterface = {
   category: (typeof CATEGORIES)[number];
   merchant: (typeof MERCHANTS)[number];
   necessity: (typeof NECESSITY)[number];
+  card: (typeof CARDS)[number];
   type: (typeof TRANSACTION_TYPES)[number];
   autopay?: (typeof AUTOPAY)[number];
   datetime: string;
@@ -245,6 +248,7 @@ export const TRANSACTIONS: TransactionInterface[] = [
     category: CATEGORIES[2],
     merchant: MERCHANTS[0],
     necessity: NECESSITY[1],
+    card: CARDS[0],
     type: TRANSACTION_TYPES[0],
     autopay: AUTOPAY[0],
     datetime: "2025-02-01 10:45",
@@ -257,6 +261,7 @@ export const TRANSACTIONS: TransactionInterface[] = [
     category: CATEGORIES[2],
     merchant: MERCHANTS[0],
     necessity: NECESSITY[1],
+    card: CARDS[0],
     type: TRANSACTION_TYPES[0],
     autopay: AUTOPAY[0],
     datetime: "2025-02-01 10:45",
@@ -269,6 +274,7 @@ export const TRANSACTIONS: TransactionInterface[] = [
     category: CATEGORIES[2],
     merchant: MERCHANTS[0],
     necessity: NECESSITY[1],
+    card: CARDS[0],
     type: TRANSACTION_TYPES[0],
     autopay: AUTOPAY[0],
     datetime: "2025-03-04 20:45",
@@ -281,6 +287,7 @@ export const TRANSACTIONS: TransactionInterface[] = [
     category: CATEGORIES[2],
     merchant: MERCHANTS[0],
     necessity: NECESSITY[1],
+    card: CARDS[0],
     type: TRANSACTION_TYPES[0],
     autopay: AUTOPAY[0],
     datetime: "2025-04-05 18:30",
@@ -293,6 +300,7 @@ export const TRANSACTIONS: TransactionInterface[] = [
     category: CATEGORIES[2],
     merchant: MERCHANTS[0],
     necessity: NECESSITY[1],
+    card: CARDS[0],
     type: TRANSACTION_TYPES[0],
     autopay: AUTOPAY[0],
     datetime: "2025-04-05 18:30",
@@ -305,6 +313,7 @@ export const TRANSACTIONS: TransactionInterface[] = [
     category: CATEGORIES[2],
     merchant: MERCHANTS[0],
     necessity: NECESSITY[1],
+    card: CARDS[0],
     type: TRANSACTION_TYPES[0],
     autopay: AUTOPAY[0],
     datetime: "2025-05-27 20:30",

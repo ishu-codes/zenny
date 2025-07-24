@@ -35,30 +35,30 @@ export const EVENTS: EventInterface[] = [
   },
 ];
 
-export type CardInterface = {
-  title: string;
-  number: string;
-  name: string;
-  theme: string;
-};
+// export type CardInterface = {
+//   title: string;
+//   number: string;
+//   name: string;
+//   theme: string;
+// };
 
-export const CARDS: CardInterface[] = [
-  {
-    title: "Personal",
-    number: "1234-5678-1234-5678",
-    name: "Mr. Coder",
-    theme: "blue",
-  },
-  {
-    title: "Shared",
-    number: "5678-1234-5678-1234",
-    name: "Mr. & Mrs. Coder",
-    theme: "green",
-  },
-  {
-    title: "International Debit Card",
-    number: "3456-7812-3456-7812",
-    name: "Mr. & Mrs. Coder",
-    theme: "blue",
-  },
-];
+// export const CARDS: CardInterface[] = [
+//   {
+//     title: "Personal",
+//     number: "1234-5678-1234-5678",
+//     name: "Mr. Coder",
+//     theme: "blue",
+//   },
+//   {
+//     title: "Shared",
+//     number: "5678-1234-5678-1234",
+//     name: "Mr. & Mrs. Coder",
+//     theme: "green",
+//   },
+//   {
+//     title: "International Debit Card",
+//     number: "3456-7812-3456-7812",
+//     name: "Mr. & Mrs. Coder",
+//     theme: "blue",
+//   },
+// ];
