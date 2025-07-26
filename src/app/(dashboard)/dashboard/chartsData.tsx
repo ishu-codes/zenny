@@ -89,6 +89,7 @@ export const MERCHANTS = [
     is_business: true,
   },
 ];
+export type MerchantInterface = (typeof MERCHANTS)[number];
 
 export const CARDS = [
   {

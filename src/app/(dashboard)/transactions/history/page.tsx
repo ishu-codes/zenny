@@ -78,7 +78,6 @@ export default function History() {
 
   const handleInputChange = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Submitted!");
     updateFilter();
   };
 

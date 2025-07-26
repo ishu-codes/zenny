@@ -42,3 +42,11 @@ export function getFormattedCurrency(value: number, actual: boolean = false) {
   }
   return `${isNegative ? "-" : ""}` + result;
 }
+
+export function getFormattedCurrencyAmount(value: number): string {
+  return new Intl.NumberFormat("en-IN", {
+    // style: "currency",
+    // currency: "INR",
+    maximumFractionDigits: 2,
+  }).format(value);
+}

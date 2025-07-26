@@ -114,3 +114,27 @@ export const useTransactionsOfMerchant = (merchantId: string) =>
     },
     staleTime: 1000 * 60 * 60,
   });
+
+export const useMerchants = () =>
+  useQuery({
+    queryKey: ["merchants"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("merchants").select("*");
+      if (error) throw error;
+
+      return data;
+    },
+    staleTime: 1000 * 60 * 60, // 1hr
+  });
+
+export const useAutopayTypes = () =>
+  useQuery({
+    queryKey: ["autopay_types"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("autopay_types").select("*");
+      if (error) throw error;
+
+      return data;
+    },
+    staleTime: 1000 * 60 * 60, // 1hr
+  });

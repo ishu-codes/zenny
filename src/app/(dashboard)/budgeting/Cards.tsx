@@ -4,8 +4,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { BillInterface, GOALS, PENDING_BILLS } from "../dashboard/chartsData";
-import { getFormattedRelativeDateTime } from "@/lib/date";
-import { TRANSACTION_CATEGORIES } from "../dashboard/chartsData";
+import { getFormattedTime } from "@/lib/date";
 import {
   Dialog,
   DialogContent,
@@ -31,7 +30,7 @@ export default function Cards() {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const bills = PENDING_BILLS.sort(
-    (a, b) => a.dateTime.getTime() - b.dateTime.getTime()
+    (a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime()
   );
 
   const handleBillClick = (bill: BillInterface | null) => {
@@ -128,17 +127,14 @@ export default function Cards() {
               >
                 <div className="w-12 h-12 p-3 rounded-full bg-primary/10">
                   {currentBill && (
-                    <DynamicIcon
-                      name={TRANSACTION_CATEGORIES[currentBill?.category]?.icon}
-                    />
+                    <DynamicIcon name={currentBill?.category?.icon} />
                   )}
                 </div>
                 <div className="w-full flex justify-between items-center">
                   <div className="">
                     <p className="font-medium">{currentBill?.title}</p>
                     <p className="text-xs text-muted-foreground">
-                      {currentBill &&
-                        getFormattedRelativeDateTime(currentBill?.dateTime)}
+                      {currentBill && getFormattedTime(currentBill?.datetime)}
                     </p>
                   </div>
                   {currentBill?.autopay && (
@@ -146,12 +142,12 @@ export default function Cards() {
                       variant={"default"}
                       className="bg-primary/10 dark:bg-emerald-900 text-foreground"
                     >
-                      {currentBill?.autopay}
+                      {currentBill?.autopay.type.name}
                     </Badge>
                   )}
                   <p
                     className={
-                      currentBill?.type === "DEBIT"
+                      currentBill?.type.name === "DEBIT"
                         ? "text-red-600 dark:text-red-400"
                         : "text-emerald-600 dark:text-emerald-400"
                     }
@@ -173,15 +169,13 @@ export default function Cards() {
                 onClick={() => handleBillClick(bill)}
               >
                 <div className="w-12 h-12 p-3 rounded-full bg-primary/10">
-                  <DynamicIcon
-                    name={TRANSACTION_CATEGORIES[bill?.category].icon}
-                  />
+                  <DynamicIcon name={bill?.category.icon} />
                 </div>
                 <div className="w-full flex justify-between items-center">
                   <div className="">
                     <p className="font-medium">{bill?.title}</p>
                     <p className="text-xs text-muted-foreground">
-                      {getFormattedRelativeDateTime(bill?.dateTime)}
+                      {getFormattedTime(bill?.datetime)}
                     </p>
                   </div>
                   {bill?.autopay && (
@@ -189,12 +183,12 @@ export default function Cards() {
                       variant={"default"}
                       className="bg-primary/10 dark:bg-emerald-900 text-foreground"
                     >
-                      {bill?.autopay}
+                      {bill?.autopay.type.name}
                     </Badge>
                   )}
                   <p
                     className={
-                      bill.type === "DEBIT"
+                      bill.type.name === "DEBIT"
                         ? "text-red-600 dark:text-red-400"
                         : "text-emerald-600 dark:text-emerald-400"
                     }

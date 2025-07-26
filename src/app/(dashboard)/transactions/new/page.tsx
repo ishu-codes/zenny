@@ -1,16 +1,5 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 // import {
@@ -31,46 +20,22 @@ import {
 } from "../../dashboard/chartsData";
 import { titleCase } from "@/lib/data";
 import { DynamicIcon } from "lucide-react/dynamic";
-
-const formSchema = z.object({
-  title: z.string().min(2, "Title must be at least 2 characters"),
-  desc: z.string().optional(),
-  category: z.enum(Object.keys(CATEGORIES) as [string, ...string[]]),
-  necessity: z.enum(Object.keys(NECESSITY) as [string, ...string[]]).optional(),
-  amount: z.number().min(1, "Amount must be positive"),
-  type: z.enum(Object.keys(TRANSACTION_TYPES) as [string, ...string[]]),
-  autopay: z
-    .enum(Object.keys(AUTOPAY_TYPES) as [string, ...string[]])
-    .optional(),
-});
+import { Card } from "@/components/ui/card";
+import MerchantsSection from "./MerchantsSection";
+import CurrentMerchant from "./CurrentMerchant";
+import { Separator } from "@/components/ui/separator";
 
 export default function NewTransaction() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: "",
-      desc: "",
-      amount: 0,
-      type: "DEBIT",
-      category: "FOOD",
-      necessity: "TRIVIAL",
-      autopay: undefined,
-    },
-  });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    const transaction: Partial<TransactionInterface> = {
-      ...values,
-      datetime: new Date().toString(),
-      id: Date.now(),
-    };
-    console.log(transaction);
-    // TODO: Handle transaction submission
-  }
-
   return (
-    <div className="w-full p-8">
-      <Form {...form}>
+    <Card className="w-full h-[calc(100vh-12rem)] p-0 flex-row gap-0">
+      <div className="w-1/2 h-full px-8 pt-6 overflow-y-auto">
+        <MerchantsSection />
+      </div>
+      <Separator orientation="vertical" />
+      <div className="w-1/2 h-full px-8 pt-6 overflow-auto">
+        <CurrentMerchant />
+      </div>
+      {/* <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-8"
@@ -315,7 +280,7 @@ export default function NewTransaction() {
             Create Transaction
           </Button>
         </form>
-      </Form>
-    </div>
+      </Form> */}
+    </Card>
   );
 }
